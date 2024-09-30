@@ -1,0 +1,10 @@
+*so to wav資料夾裡
+main.py是圖片轉zip的程式
+ALL_zip是照片zip檔
+decompression.py是解壓縮照片矩陣的程式
+
+*txt資料夾裡
+main.py是文字檔轉矩陣的程式(要把orange.py放在同一個資料夾裡)(要去song資料夾裡找tja檔來讀)
+
+
+*我用了兩首歌star、irony你加油!!!
