@@ -1,5 +1,9 @@
 # Taiko
-    Taiko for Luoluo and BU
+      Taiko for Luoluo and BU
+
+# ToDoList
+      alter readdata from funtion to class
+      
 # Song 
       1 ESE:
              https://ese.tjadataba.se/ESE/ESE

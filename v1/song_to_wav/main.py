@@ -21,7 +21,7 @@ def split_audio(filename, take_off = 0, bpm = 188, output_folder = '.',piece = 5
   if not path.isdir(output_folder):
     raise Exception("Please check folder exist")
 
-  print("spliting song to"+str(bpm)+"a sec...")
+  print("spliting song to "+str(bpm)+" a sec...")
 
   start_time = take_off
 
