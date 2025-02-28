@@ -3,7 +3,10 @@
 
 # ToDoList
       alter readdata from funtion to class
-      
+
+# Error
+      Doesn't know where splitv1.py output file go
+
 # Song 
       1 ESE:
              https://ese.tjadataba.se/ESE/ESE
