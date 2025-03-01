@@ -14,7 +14,7 @@ class TjaData():
         self.tja_file_path = None
         for file in os.listdir(self.tja_path):
             if file.endswith(".tja"):
-                tja_file_path = os.path.join(self.tja_path, file)
+                self.tja_file_path = os.path.join(self.tja_path, file)
                 break
         
         # if not tja_file_path:
@@ -24,7 +24,7 @@ class TjaData():
         #         print(f"  - {file}")
         #     return None
         
-        with open(tja_file_path, 'r', encoding='utf-8') as file:
+        with open(self.tja_file_path, 'r', encoding='utf-8') as file:
             content = file.read()
         return  content
     
@@ -57,5 +57,5 @@ class TjaData():
 
 
 if __name__ == "__main__":
-    tja_data=TjaData("Taiko-switch/1. J-POP/01. Takane no Hanako-san")
+    tja_data=TjaData("level 6~7/02. TT -Japanese ver.-")
     print( tja_data.Bpm())
