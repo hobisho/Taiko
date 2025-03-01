@@ -21,8 +21,7 @@ def split_audio(filename, take_off = 0, bpm = 188, output_folder = '.',piece = 5
   if not path.isdir(output_folder):
     raise Exception("Please check folder exist")
 
-
-  print("spliting song to"+str(bpm)+"a sec...")
+  print("spliting song to "+str(bpm)+" a sec...")
 
   start_time = take_off
 
@@ -107,5 +106,4 @@ setting(song_name,save_jpg,turn_zip)
 split_audio(song_path,take_off = 11.75, bpm = 175, output_folder=cut_song_Path,piece=piece)
 ogg_to_jpg(cut_song_Path,jpg_Path,song_name,pic_max,save_jpg,turn_zip,zip_path)
 os.remove("./tensorflow/song_to_wav/Convert.jpg")
-
 
