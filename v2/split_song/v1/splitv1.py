@@ -1,11 +1,11 @@
 from os import path
 from audioread import audio_open
 from utils import require_ffmpeg
-from wrappers import start_wrapper, main
+from wrappers import start_wrapper, main # type: ignore
 from subprocess import PIPE, STDOUT, Popen as system_call
 import os,numpy as np
-from song_sec import count_sec
-from readdata import TjaData
+from song_sec import count_sec # type: ignore
+from readdata import TjaData # type: ignore
 
 
 def get_filename_arr(filename):

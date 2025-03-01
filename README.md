@@ -23,7 +23,8 @@
       pip install ffmpeg
       pip install os
       pip install soundfile
-      pip install pydub
+      pip install pydub(切割)
+      pip install tqdm(進度條)
 
 
 # v2 
