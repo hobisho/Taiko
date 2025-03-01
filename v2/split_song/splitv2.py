@@ -7,6 +7,7 @@ from song_sec import count_sec # type: ignore
 
 def process_audio(input_file, output_folder):
     #設定
+    
     ogg_file_path = None
     ja_data=TjaData(input_file)
     offset = ja_data.Offset() *1000
@@ -17,7 +18,7 @@ def process_audio(input_file, output_folder):
             file_name = os.path.splitext(file)[0]
             ogg_file_path = os.path.join(input_file, file)
             break
-    
+    print(f"================================================= spliting {file_name} =================================================\n")
     os.makedirs(output_folder, exist_ok=True)
     
     # 載入音檔
@@ -36,7 +37,7 @@ def process_audio(input_file, output_folder):
         split_audio.export(output_path, format="ogg")
         # print(f"儲存片段 {i+1}: {output_path}")
         start = end
-    print("===================split song end===================")
+    print(f"\n===================split {file_name} end===================")
 
 # 測試用範例
 if __name__ == "__main__":
