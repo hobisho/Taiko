@@ -3,7 +3,7 @@
 
 
 # ToDoList
-      alter readdata from funtion to class
+      
 
 
 # Error
