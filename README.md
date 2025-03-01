@@ -1,11 +1,14 @@
 # Taiko
       Taiko for Luoluo and BU
 
+
 # ToDoList
       alter readdata from funtion to class
 
+
 # Error
       Doesn't know where splitv1.py output file go
+
 
 # Song 
       1 ESE:
@@ -13,7 +16,16 @@
     
       2 Switch:
             https://docs.google.com/spreadsheets/d/1kjrQCERIihmhQPYSOelu16bpeJ-HKneBj5-dkoc2wRs/edit#gid=0
-    
+
+
+# Pip
+      pip install tenserflow
+      pip install ffmpeg
+      pip install os
+      pip install soundfile
+      pip install pydub
+
+
 # v2 
       1 select song:
             一 unzip:

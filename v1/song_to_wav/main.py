@@ -107,4 +107,3 @@ split_audio(song_path,take_off = 11.75, bpm = 175, output_folder=cut_song_Path,p
 ogg_to_jpg(cut_song_Path,jpg_Path,song_name,pic_max,save_jpg,turn_zip,zip_path)
 os.remove("./tensorflow/song_to_wav/Convert.jpg")
 
-
