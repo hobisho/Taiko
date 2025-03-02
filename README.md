@@ -25,6 +25,7 @@
       pip install soundfile
       pip install pydub(切割)
       pip install tqdm(進度條)
+      pip install librosa matplotlib numpy(頻譜轉換)
 
 
 # v2 
