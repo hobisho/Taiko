@@ -57,7 +57,6 @@ def reshape_output(pic_max):
         im2 = im.resize((w, h))      # 調整尺寸
         return im2
 
-        
 
 
 

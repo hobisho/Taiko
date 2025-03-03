@@ -14,6 +14,5 @@ def compression(file_path):
     feature = { "image_raw": _bytes_feature(image_string) }
     tf_example = tf.train.Example(features=tf.train.Features(feature=feature))
 
-
     with tf.io.TFRecordWriter("./tensorflow/txt/example.tfrecords") as writer:
         writer.write(tf_example.SerializeToString())

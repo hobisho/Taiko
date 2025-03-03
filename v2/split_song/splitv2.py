@@ -1,6 +1,7 @@
 from pydub import AudioSegment
-import os
+import os , librosa
 from tqdm import tqdm
+from Spectrogram import audio_to_spectrogram # type: ignore
 from readdata import TjaData # type: ignore
 from song_sec import count_sec # type: ignore
 
@@ -33,14 +34,15 @@ def process_audio(input_file, output_folder):
         # print(end,start)
         split_audio = trimmed_audio[start:end]
         # 儲存片段
-        output_path = os.path.join(output_folder, f"{file_name}_{i+1}_{ja_data.Level()}.ogg")
-        split_audio.export(output_path, format="ogg")
-        # print(f"儲存片段 {i+1}: {output_path}")
+        # output_path = os.path.join(output_folder, f"{file_name}_{i+1}_{ja_data.Level()}.ogg")
+        # split_audio.export(output_path, format="ogg")
+        # # print(f"儲存片段 {i+1}: {output_path}")
         start = end
-    print(f"\n===================split {file_name} end===================")
+    audio_to_spectrogram(split_audio)
 
 # 測試用範例
 if __name__ == "__main__":
     input_audio = "level 6~7/02. TT -Japanese ver.-"  # 你的音檔
     output_dir = "hi"  # 儲存資料夾
     process_audio(input_audio, output_dir)
+    

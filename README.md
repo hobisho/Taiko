@@ -12,7 +12,7 @@
 
 # Song 
       1 ESE:
-             https://ese.tjadataba.se/ESE/ESE
+            https://ese.tjadataba.se/ESE/ESE
     
       2 Switch:
             https://docs.google.com/spreadsheets/d/1kjrQCERIihmhQPYSOelu16bpeJ-HKneBj5-dkoc2wRs/edit#gid=0
@@ -22,10 +22,11 @@
       pip install tenserflow
       pip install ffmpeg
       pip install os
+      pip install opencv-python                            (CV2)
       pip install soundfile
-      pip install pydub(切割)
-      pip install tqdm(進度條)
-      pip install librosa matplotlib numpy(頻譜轉換)
+      pip install pydub                                          (切割)
+      pip install tqdm                                            (進度條)
+      pip install librosa matplotlib numpy            (頻譜轉換)
 
 
 # v2 
