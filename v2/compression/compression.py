@@ -1,5 +1,5 @@
 import tensorflow as tf
-from skimage import io
+from skimage import io # type: ignore
 
 # 二進位資料
 def _bytes_feature(value):
