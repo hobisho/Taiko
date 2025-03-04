@@ -27,6 +27,9 @@
       pip install pydub                                          (切割)
       pip install tqdm                                            (進度條)
       pip install librosa matplotlib numpy            (頻譜轉換)
+      pip install matplotlib==3.7.0                        (fft擷取)
+      pip install -U numpy                                     (fft擷取)
+
 
 
 # v2 

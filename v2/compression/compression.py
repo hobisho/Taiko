@@ -20,7 +20,7 @@ image_filename_list = ['dog-0.jpg', 'dog-1.jpg', 'dog-2.jpg'];
 label_list = [1.0, 1.2, 0.6]
 
 # TFRecord 檔名
-tfrecords_filename = 'dogs.tfrecords'
+tfrecords_filename = 'taiko.tfrecords'
 
 # 建立 TFRecordWriter
 writer = tf.python_io.TFRecordWriter(tfrecords_filename)
