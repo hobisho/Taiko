@@ -1,25 +1,13 @@
 import tensorflow as tf
 import numpy as np
 
+
 # TFRecord 檔名
 def decompression(tfrecords_filename):
     tfrecords_filename = tfrecords_filename
 
     # 建立 TFRecordDataset
     dataset = tf.data.TFRecordDataset(tfrecords_filename)
-
-    # 定義 TFRecord 格式
-    feature_description = {
-        'height': tf.io.FixedLenFeature([], tf.int64),
-        'width': tf.io.FixedLenFeature([], tf.int64),
-        'depth': tf.io.FixedLenFeature([], tf.int64),
-        'image_string': tf.io.FixedLenFeature([], tf.string),
-        'label': tf.io.FixedLenFeature([], tf.float32),
-    }
-
-    # 解析函式
-    def _parse_function(proto):
-        return tf.io.parse_single_example(proto, feature_description)
 
     # 解析 TFRecord
     parsed_dataset = dataset.map(_parse_function)
@@ -41,6 +29,20 @@ def decompression(tfrecords_filename):
         label_list.append(label)
 
     return image_list, label_list 
+
+def _parse_function(proto):
+    # 定義 TFRecord 格式
+    feature_description = {
+        'height': tf.io.FixedLenFeature([], tf.int64),
+        'width': tf.io.FixedLenFeature([], tf.int64),
+        'depth': tf.io.FixedLenFeature([], tf.int64),
+        'image_string': tf.io.FixedLenFeature([], tf.string),
+        'label': tf.io.FixedLenFeature([], tf.float32),
+    }
+    
+    return tf.io.parse_single_example(proto, feature_description)
+
+
     
 if __name__ == '__main__':
     tfrecords_filename = 'taiko.tfrecords'

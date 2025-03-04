@@ -53,9 +53,28 @@ class TjaData():
         else:
             print(f"未找到 OFFSET 數值於")
             return None
+        
+    def Piece(self):
+        start = False
+        time = 0
+        a = self.ReadTja()
+        for line in  a.split():
+            line = line.strip()
+            if line.upper() == "#START":
+                start = True
+                continue
+            
+            if line.upper() == "#END":
+                print("end")
+                break
+            
+            if (start&(re.search(r',', line)!= None)):
+                time = time+1
+                
+        return int(time*16)
 
 
 
 if __name__ == "__main__":
-    tja_data=TjaData("level 6~7/02. TT -Japanese ver.-")
-    print( tja_data.Bpm())
+    tja_data=TjaData("level 6~7/1_song")
+    print( tja_data.Piece())

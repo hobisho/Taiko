@@ -18,7 +18,7 @@ def parse_tja_file(file_path):
         if line.upper() == "#END":
             break
         
-        if start:
+        if (start&(re.search(r',', line)!= None)):
             word = ""
             extracted_numbers = re.findall(r'(\d+),', line)  # 輸入數字字串
             
@@ -70,6 +70,6 @@ def parse_tja_file(file_path):
 
 # 測試用
 if __name__ == "__main__":
-    file_path = "level 6~7/02. TT -Japanese ver.-/TT -Japanese ver.-.tja"  # 這裡請換成你的.tja檔案路徑
+    file_path = "level 6~7/1_song/1_song.tja"  # 這裡請換成你的.tja檔案路徑
     result,output_numbers = parse_tja_file(file_path)
     print(result)
