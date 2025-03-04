@@ -8,7 +8,7 @@ def _bytes_feature(value):
     return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
 
-image_string = open("./tensorflow/txt/jpg/class 1/song1_1.0.jpg", 'rb').read()
+image_string = open("matrix_image.png", 'rb').read()
 
 feature = { "image_raw": _bytes_feature(image_string) }
 tf_example = tf.train.Example(features=tf.train.Features(feature=feature))

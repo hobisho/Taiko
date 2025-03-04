@@ -18,31 +18,28 @@ def audio_to_spectrogram_array(audio):
     sr = 48000
     
     # 計算梅爾頻譜
+    spectrogram = librosa.amplitude_to_db(librosa.stft(y))
     S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128, fmax=8000)
     S_db = librosa.power_to_db(S, ref=np.max)
     
     # 轉換頻譜圖為 NumPy 陣列
-    fig, ax = plt.subplots(figsize=(1, 1),dpi = 100)
-    librosa.display.specshow(S_db, sr=sr, ax=ax)
+    fig, ax = plt.subplots(dpi = 100)
+    librosa.display.specshow(spectrogram, ax=ax, y_axis='log')#, sr=sr,
     fig.canvas.draw()
     plt.axis("off")
     plt.margins(0,0)
     plt.tight_layout()
+    im = ax.imshow(spectrogram)
+
+    retrieved_array = im.get_array()
     
     # # 擷取圖像的像素數據作為矩陣輸出
-    return S_db
+    return retrieved_array
 
 # 使用示例
 if __name__ == "__main__":
-    audio = AudioSegment.from_file("level 6~7/DLC 22. Koisuru Fortune Cookie/Koisuru Fortune Cookie.ogg")
+    audio = AudioSegment.from_file("hi/TT -Japanese ver.-_1_7.ogg")
     spectrogram_image = audio_to_spectrogram_array(audio)
-    plt.matshow(spectrogram_image, cmap='viridis')
+    log_S = librosa.amplitude_to_db(spectrogram_image, ref=np.max)
 
-    # 去除坐标轴
-    plt.axis('off')
-
-    # 保存为图片
-    plt.savefig('matrix_image.png', bbox_inches='tight', pad_inches=0)
-
-    # 显示图像
-    plt.show()
+    print(log_S)

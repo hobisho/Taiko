@@ -1,7 +1,7 @@
 from pydub import AudioSegment
-import os , librosa
+import os 
 from tqdm import tqdm
-from Spectrogram import audio_to_spectrogram # type: ignore
+# from Spectrogram import audio_to_spectrogram # type: ignore
 from readdata import TjaData # type: ignore
 from song_sec import count_sec # type: ignore
 
@@ -30,15 +30,15 @@ def process_audio(input_file, output_folder):
     time_per_footage = count_sec(ja_data.Bpm(),duration=len(audio),take_off=offset)
     
     for i in tqdm(range(len(time_per_footage))):
-        end = start + time_per_footage[i]
+        end = start + time_per_footage[i]*1000
         # print(end,start)
         split_audio = trimmed_audio[start:end]
         # 儲存片段
-        # output_path = os.path.join(output_folder, f"{file_name}_{i+1}_{ja_data.Level()}.ogg")
-        # split_audio.export(output_path, format="ogg")
+        output_path = os.path.join(output_folder, f"{file_name}_{i+1}_{ja_data.Level()}.ogg")
+        split_audio.export(output_path, format="ogg")
         # # print(f"儲存片段 {i+1}: {output_path}")
         start = end
-    audio_to_spectrogram(split_audio)
+        # audio_to_spectrogram(split_audio)
 
 # 測試用範例
 if __name__ == "__main__":

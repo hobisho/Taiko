@@ -30,7 +30,7 @@ def count_sec(bpm=188,duration=60,take_off=0):
         # print(cut, " ",cut_sum," ", n * ideal_per_cut)
     
 if __name__ == "__main__":
-    time = count_sec(bpm=175,duration=92000,take_off=11750)#912
-    print(len(time))
+    time = count_sec(bpm=120,duration=92000,take_off=0)#912
+    print(time)
 
 
