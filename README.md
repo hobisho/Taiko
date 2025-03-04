@@ -28,7 +28,7 @@
       pip install tqdm                                            (進度條)
       pip install librosa matplotlib numpy            (頻譜轉換)
       pip install matplotlib==3.7.0                        (fft擷取)
-      pip install -U numpy                                     (fft擷取)
+      pip install numpy==1.26.0                           (fft擷取)
 
 
 
