@@ -3,7 +3,7 @@ import librosa.display
 import numpy as np
 import matplotlib.pyplot as plt
 from pydub import AudioSegment
-from array_zip import comprassion # type: ignore
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 def audiosegment_to_numpy(audio_segment):
     # 取得音訊的聲道數、取樣寬度、幀數
@@ -21,32 +21,33 @@ def audiosegment_to_numpy(audio_segment):
 
 
 def audio_to_spectrogram(audio, save_path="spectrogram.png"):
-    # # 讀取音訊
-    # audio = AudioSegment.from_file(audio_path)
-    # 去除 offset
+    
+    # 1. 讀取音訊並計算 Spectrogram
     y = audiosegment_to_numpy(audio)
-    sr =48000
+    sr = 48000
 
-    # 轉換為梅爾頻譜
-    S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128, fmax=8000)
-    S_db = librosa.power_to_db(S, ref=np.max)
-    
-    # 繪製頻譜圖
-    plt.figure(figsize=(1, 1),dpi=100)
-    plt.axis("off")
-    plt.margins(0,0)
-    librosa.display.specshow(S_db, y_axis="log")
-    plt.tight_layout()
+    # 2.傅立葉轉換
+    D = np.abs(librosa.stft(y))  # 計算短時傅立葉變換 (STFT)
+    log_S = librosa.amplitude_to_db(D, ref=np.max)  # 轉換為 dB Scale
 
-    # 儲存圖片
-    plt.savefig(save_path, bbox_inches="tight", pad_inches=0)
-    fig.canvas.draw()
-    
-    # 擷取圖像的像素數據作為矩陣輸出
-    spectrogram_image = np.array(fig.canvas.renderer.buffer_rgba())
-    plt.close(fig)
+    # 3. 建立 Matplotlib Figure
+    fig, ax = plt.subplots(figsize=(6, 4))  # 設定大小
+    librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='log', cmap='jet')
+    ax.axis('off')  # 隱藏軸線
+    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)  # 去除邊框
+
+    # 4. 轉換成 RGB 陣列
+    canvas = FigureCanvas(fig)
+    canvas.draw()
+
+    # 5. 提取 NumPy 陣列
+    width, height = fig.canvas.get_width_height()
+    image_array = np.frombuffer(canvas.tostring_argb(), dtype=np.uint8).reshape(height, width, 4)
+
+    plt.savefig('m.png', bbox_inches='tight', pad_inches=0)
     # plt.show()
-    return spectrogram_image
+    plt.close(fig)  # 關閉圖表，釋放記憶體
+    return image_array
 
 # 使用示例
 if __name__ == "__main__":

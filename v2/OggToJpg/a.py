@@ -32,13 +32,14 @@ def audio_to_spectrogram_array(audio):
     im = ax.imshow(spectrogram)
 
     retrieved_array = im.get_array()
+    plt.show()
     
     # # 擷取圖像的像素數據作為矩陣輸出
     return retrieved_array
 
 # 使用示例
 if __name__ == "__main__":
-    audio = AudioSegment.from_file("hi/TT -Japanese ver.-_1_7.ogg")
+    audio = AudioSegment.from_file("hi/TT -Japanese ver.-_15_7.ogg")
     spectrogram_image = audio_to_spectrogram_array(audio)
     log_S = librosa.amplitude_to_db(spectrogram_image, ref=np.max)
 
