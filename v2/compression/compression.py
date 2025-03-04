@@ -1,5 +1,6 @@
 import tensorflow as tf
-from skimage import io # type: ignore
+import imageio
+import os
 
 # 二進位資料
 def _bytes_feature(value):
@@ -13,36 +14,45 @@ def _int64_feature(value):
 def _float32_feature(value):
     return tf.train.Feature(float_list=tf.train.FloatList(value=value))
 
-# 圖片檔案名稱
-image_filename_list = ['dog-0.jpg', 'dog-1.jpg', 'dog-2.jpg'];
+# 圖片檔案名稱列表
+image_filename_list = []
+label_list = []
+for numbers in range(1,10):
+    image_filename_list.append(f"zip_testing_data\TT -Japanese ver.-_{numbers}_7.png") 
+    label_list.append(1)
+print(image_filename_list)
 
-# 標示資料
-label_list = [1.0, 1.2, 0.6]
 
 # TFRecord 檔名
 tfrecords_filename = 'taiko.tfrecords'
 
 # 建立 TFRecordWriter
-writer = tf.python_io.TFRecordWriter(tfrecords_filename)
+with tf.io.TFRecordWriter(tfrecords_filename) as writer:
+    for image_filename, label in zip(image_filename_list, label_list):
+        if not os.path.exists(image_filename):
+            print(f"檔案 {image_filename} 不存在，跳過")
+            continue
+        else:
+            print(f"檔案 {image_filename} 存在")
 
-for image_filename, label in zip(image_filename_list, label_list):
-    # 圖取圖檔
-    image = io.imread(image_filename)
+        # 讀取圖片
+        image = imageio.imread(image_filename)
 
-    # 取得圖檔尺寸資訊
-    height, width, depth = image.shape
+        # 取得圖片尺寸
+        height, width, depth = image.shape
 
-    # 序列化資料
-    image_string = image.tostring()
+        # 轉換為 bytes
+        image_string = image.tobytes()
 
-    # 建立包含多個 Features 的 Example
-    example = tf.train.Example(features=tf.train.Features(feature={
-        'height': _int64_feature(height),
-        'width': _int64_feature(width),
-        'image_string': _bytes_feature(image_string),
-        'label': _float32_feature([label])}))
+        # 建立 TFRecord Example
+        example = tf.train.Example(features=tf.train.Features(feature={
+            'height': _int64_feature(height),
+            'width': _int64_feature(width),
+            'depth': _int64_feature(depth),
+            'image_string': _bytes_feature(image_string),
+            'label': _float32_feature([label])
+        }))
 
-    writer.write(example.SerializeToString())
+        writer.write(example.SerializeToString())
 
-# 關閉 TFRecordWriter
-writer.close()
+print(f"TFRecord '{tfrecords_filename}' 建立完成！")

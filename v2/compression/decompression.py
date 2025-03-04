@@ -2,28 +2,38 @@ import tensorflow as tf
 import numpy as np
 
 # TFRecord 檔名
-tfrecords_filename = 'dogs.tfrecords'
+tfrecords_filename = 'taiko.tfrecords'
 
-record_iterator = tf.python_io.tf_record_iterator(path=tfrecords_filename)
+# 建立 TFRecordDataset
+dataset = tf.data.TFRecordDataset(tfrecords_filename)
 
-for string_record in record_iterator:
-  # 建立 Example
-  example = tf.train.Example()
+# 定義 TFRecord 格式
+feature_description = {
+    'height': tf.io.FixedLenFeature([], tf.int64),
+    'width': tf.io.FixedLenFeature([], tf.int64),
+    'depth': tf.io.FixedLenFeature([], tf.int64),
+    'image_string': tf.io.FixedLenFeature([], tf.string),
+    'label': tf.io.FixedLenFeature([], tf.float32),
+}
 
-  # 解析來自於 TFRecords 檔案的資料
-  example.ParseFromString(string_record)
+# 解析函式
+def _parse_function(proto):
+    return tf.io.parse_single_example(proto, feature_description)
 
-  # 取出 height 這個 Feature
-  height = int(example.features.feature['height'].int64_list.value[0])
+# 解析 TFRecord
+parsed_dataset = dataset.map(_parse_function)
 
-  # 取出 width 這個 Feature
-  width = int(example.features.feature['width'].int64_list.value[0])
+# 逐筆讀取 TFRecord
+for record in parsed_dataset:
+    height = int(record['height'].numpy())
+    width = int(record['width'].numpy())
+    depth = int(record['depth'].numpy())
+    image_string = record['image_string'].numpy()
+    label = float(record['label'].numpy())
 
-  # 取出 image_string 這個 Feature
-  image_string = (example.features.feature['image_string'].bytes_list.value[0])
+    # 將 bytes 轉換回 NumPy 陣列
+    image_1d = np.frombuffer(image_string, dtype=np.uint8)
+    image = image_1d.reshape((height, width, depth))
 
-  # 取出 label 這個 Feature
-  label = (example.features.feature['label'].float_list.value[0])
+    print(f"讀取圖片: {height}x{width}，標籤: {label}，data{image}")
 
-  image_1d = np.fromstring(image_string, dtype=np.uint8)
-  image = image_1d.reshape((height, width, 3))
