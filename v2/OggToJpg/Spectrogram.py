@@ -45,7 +45,7 @@ def audio_to_spectrogram(audio,name):
     width, height = fig.canvas.get_width_height()
     image_array = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
 
-    plt.savefig(f'{name}.png', bbox_inches='tight', pad_inches=0,transparent=False)
+    plt.savefig(f'{name}.jpg', bbox_inches='tight', pad_inches=0,transparent=False)
     # plt.show()
     plt.close(fig)  # 關閉圖表，釋放記憶體
     # image_rgb = image_array.convert("RGB")# 移除透明通道

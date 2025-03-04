@@ -18,8 +18,8 @@ def process_audio(input_file, output_folder):
             file_name = os.path.splitext(file)[0]
             ogg_file_path = os.path.join(input_file, file)
             break
-    print(f"================================================= spliting {file_name} =================================================\n")
-    os.makedirs(output_folder, exist_ok=True)
+    print(f"============================================ spliting {file_name} ============================================\n")
+    os.makedirs(f"{output_dir}/{file_name}", exist_ok=True)
     
     # 載入音檔
     audio = AudioSegment.from_file(ogg_file_path)
@@ -34,7 +34,7 @@ def process_audio(input_file, output_folder):
         # print(end,start)
         split_audio = trimmed_audio[start:end]
         # 儲存片段
-        output_path = os.path.join(output_folder, f"{file_name}_{i+1}_{tja_data.Level()}.ogg")
+        output_path = os.path.join(f"{output_dir}/{file_name}", f"{file_name}_{i+1}.ogg")
         split_audio.export(output_path, format="ogg")
         # # print(f"儲存片段 {i+1}: {output_path}")
         start = end
@@ -42,7 +42,7 @@ def process_audio(input_file, output_folder):
 
 # 測試用範例
 if __name__ == "__main__":
-    input_audio = "level 6~7/1_song"  # 你的音檔
+    input_audio = "level 6~7/3_song"  # 你的音檔
     output_dir = "split_ogg"  # 儲存資料夾
     process_audio(input_audio, output_dir)
     
