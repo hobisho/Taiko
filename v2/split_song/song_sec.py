@@ -1,4 +1,4 @@
-def count_sec(bpm=188,duration=60,take_off=0,piece=912):
+def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
     duration = duration/1000
     take_off = take_off/1000
     ideal_per_cut = 15/bpm
@@ -20,6 +20,7 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=912):
             cut= duration_cut-cut_sum
             if (cut > 0.1):
                 time.append(cut)
+            print(cut_sum)
             return time
 
         cut_sum += cut
@@ -30,7 +31,7 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=912):
         # print(cut, " ",cut_sum," ", n * ideal_per_cut)
     
 if __name__ == "__main__":
-    time = count_sec(bpm=120,duration=92000,take_off=0)#912
-    print(time)
+    time = count_sec(bpm=125,duration=90841,take_off=3011,piece = 1808)#912
+    print((time))
 
 

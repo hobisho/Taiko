@@ -23,7 +23,11 @@ def extract_level_value(folder_path):
     # 使用正則表達式提取 LEVEL: 後的數值BPMCHANGE
     match = re.search(r'LEVEL:\s*(\d+)', content)
     bpmchange = re.search(r'BPMCHANGE', content)
+    measure = re.search(r'MEASURE', content)
+    
     if bpmchange:
+        return int(0)
+    elif measure:
         return int(0)
     elif match:
         return int(match.group(1))    
@@ -49,5 +53,5 @@ if __name__ == "__main__":
     root_folder = "Taiko-switch"
     for subfolder in os.listdir(root_folder):
         root_folder_path = os.path.join(root_folder, subfolder)  # 請修改為你的資料夾路徑
-        destination_folder_path = "level 6~7"  # 請修改為你的目標資料夾路徑
+        destination_folder_path = "v2/data/level 6~7"  # 請修改為你的目標資料夾路徑
         copy_folder_if_level_in_range(root_folder_path, destination_folder_path)
