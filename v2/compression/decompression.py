@@ -45,7 +45,7 @@ def _parse_function(proto):
 
     
 if __name__ == '__main__':
-    tfrecords_filename = 'taiko.tfrecords'
+    tfrecords_filename = 'v2/data/taiko.tfrecords'
     image_list, label_list = decompression(tfrecords_filename)
     print(image_list[0])
 

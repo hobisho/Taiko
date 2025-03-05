@@ -17,7 +17,7 @@ def _float32_feature(value):
 # 圖片檔案名稱列表
 def compression_list(image_filename_list, label_list):
     # TFRecord 檔名
-    tfrecords_filename = 'taiko.tfrecords'
+    tfrecords_filename = 'v2/data/taiko.tfrecords'
 
     # 建立 TFRecordWriter
     with tf.io.TFRecordWriter(tfrecords_filename) as writer:

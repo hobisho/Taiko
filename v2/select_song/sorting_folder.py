@@ -14,10 +14,11 @@ def rename_files_in_folders(parent_folder):
                 new_name = f"{idx}_song{extension}"
                 new_path = os.path.join(folder_path, new_name)
                 os.rename(file_path, new_path)
-                new_folder_name = f"{idx}_song"
-                new_folder_path = os.path.join(parent_folder, new_folder_name)
-                os.rename(folder_path, new_folder_path)
                 print(f"Renamed: {file_path} -> {new_path}")
+        new_folder_name = f"{idx}_song"
+        new_folder_path = os.path.join(parent_folder, new_folder_name)
+        os.rename(folder_path, new_folder_path)
+
 
 if __name__ == "__main__":
     target_directory = "level 6~7"  # 請更換為實際的目標資料夾路徑
