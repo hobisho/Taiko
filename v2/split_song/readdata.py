@@ -65,7 +65,7 @@ class TjaData():
                 continue
             
             if line.upper() == "#END":
-                print("end")
+                # print("end")
                 break
             
             if (start&(re.search(r',', line)!= None)):
@@ -76,5 +76,6 @@ class TjaData():
 
 
 if __name__ == "__main__":
-    tja_data=TjaData("level 6~7/1_song")
+    tja_data=TjaData("v2/data/level 6~7/8_song")
     print( tja_data.Piece())
+    print(tja_data.Bpm())

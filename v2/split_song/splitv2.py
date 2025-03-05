@@ -39,6 +39,7 @@ def process_audio(input_file, output_folder):
         # # print(f"儲存片段 {i+1}: {output_path}")
         start = end
         # audio_to_spectrogram(split_audio)
+        return split_audio
 
 # 測試用範例
 if __name__ == "__main__":

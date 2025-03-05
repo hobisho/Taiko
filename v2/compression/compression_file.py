@@ -42,7 +42,7 @@ def compression_file(image_list, label):
 
 
 if __name__ == '__main__':
-    image_filename = "zip_testing_data\TT -Japanese ver.-_1_7.png"
+    image_filename = "v2/data/zip_testing_data\TT -Japanese ver.-_1_7.png"
     image_list = imageio.imread(image_filename)
     my_np_array = np.array(image_list)
     height, width, depth = my_np_array.shape

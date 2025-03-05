@@ -1,7 +1,17 @@
 import re
+import os
 from itertools import chain
 
-def parse_tja_file(file_path):
+def parse_tja_file(folder_path:str)->list:
+    file_path = None
+    
+    # 確保輸出資料夾存在
+    for file in os.listdir(folder_path):
+        if file.endswith(".tja"):
+            file_path = os.path.join(folder_path, file)
+            break
+        
+    
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
     
@@ -30,7 +40,7 @@ def parse_tja_file(file_path):
             #     word_list = extracted_numbers
 
             #if it can be devide by 4 and not 16 numbers
-            elif ((len(extracted_numbers[0])%4)==0) :
+            elif( ((len(extracted_numbers[0])%4)==0)| ((len(extracted_numbers[0]))==1) | ((len(extracted_numbers[0]))==2)):
                 #small than 16
                 if(len(extracted_numbers[0])<16):
                     multiply = int(16/len(extracted_numbers[0]))
@@ -66,10 +76,11 @@ def parse_tja_file(file_path):
                 print("error")
                 
             numbers.extend(word_list)
-    return numbers,extracted_numbers
+    return numbers
 
 # 測試用
 if __name__ == "__main__":
-    file_path = "level 6~7/1_song/1_song.tja"  # 這裡請換成你的.tja檔案路徑
-    result,output_numbers = parse_tja_file(file_path)
+    file_path = "v2/data/level 6~7/song1"  # 這裡請換成你的.tja檔案路徑
+    result = parse_tja_file(file_path)
     print(result)
+
