@@ -3,7 +3,6 @@ def break_str(string_list):
     for string in string_list:
         for count in range (16):
             out.append(string[count])
-    print(out)
     return out
 
 if __name__ == '__main__':
