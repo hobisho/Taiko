@@ -3,7 +3,7 @@ import numpy as np
 
 
 # TFRecord 檔名
-def decompression(tfrecords_filename):
+def decompression(tfrecords_filename:str)->list:
     tfrecords_filename = tfrecords_filename
 
     # 建立 TFRecordDataset
@@ -19,13 +19,16 @@ def decompression(tfrecords_filename):
         height = int(record['height'].numpy())
         width = int(record['width'].numpy())
         depth = int(record['depth'].numpy())
+        time = int(record['time'].numpy())
         image_string = record['image_string'].numpy()
-        label = float(record['label'].numpy())
+        label_string = record['label_string'].numpy()
 
         # 將 bytes 轉換回 NumPy 陣列
         image_1d = np.frombuffer(image_string, dtype=np.uint8)
-        image = image_1d.reshape((height, width, depth))
+        image = image_1d.reshape((height, width, depth, time))
         image_list.append(image)
+        label_1d = np.fromstring(label_string,dtype=int)
+        label = label_1d.reshape((time))
         label_list.append(label)
 
     return image_list, label_list 
@@ -36,8 +39,9 @@ def _parse_function(proto):
         'height': tf.io.FixedLenFeature([], tf.int64),
         'width': tf.io.FixedLenFeature([], tf.int64),
         'depth': tf.io.FixedLenFeature([], tf.int64),
+        'time': tf.io.FixedLenFeature([], tf.int64),
         'image_string': tf.io.FixedLenFeature([], tf.string),
-        'label': tf.io.FixedLenFeature([], tf.float32),
+        'label_string': tf.io.FixedLenFeature([], tf.string)
     }
     
     return tf.io.parse_single_example(proto, feature_description)
@@ -47,5 +51,4 @@ def _parse_function(proto):
 if __name__ == '__main__':
     tfrecords_filename = 'v2/data/taiko.tfrecords'
     image_list, label_list = decompression(tfrecords_filename)
-    print(image_list[0])
-
+    print(label_list)

@@ -82,5 +82,5 @@ def parse_tja_file(folder_path:str)->list:
 if __name__ == "__main__":
     file_path = "v2/data/level 6~7/song1"  # 這裡請換成你的.tja檔案路徑
     result = parse_tja_file(file_path)
-    print(result)
+    print(type(result))
 

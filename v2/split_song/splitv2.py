@@ -8,7 +8,7 @@ sys.path.append(r"v2/OggToJpg")
 from Spectrogram import audio_to_spectrogram # type: ignore
 
 
-def process_audio(input_file, song_output_folder,jpg_output_folder):
+def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
             
     ogg_file_path = None
     tja_data=TjaData(input_file)
@@ -34,22 +34,23 @@ def process_audio(input_file, song_output_folder,jpg_output_folder):
     
     jpg_output_dir = f"{jpg_output_folder}/{file_name}"
     os.makedirs(jpg_output_dir, exist_ok=True)
-    image_array = []
+    image_list = []
     for i in tqdm(range(len(time_per_footage))):
         end = start + time_per_footage[i]*1000
         # print(end,start)
         split_audio = audio[start:end]
         # print(end)
+        
         # 儲存片段
         output_path = os.path.join(f"{song_output_folder}/{file_name}", f"{file_name}_{i+1}.ogg")
         split_audio.export(output_path, format="ogg")
-        # # print(f"儲存片段 {i+1}: {output_path}")
+
         start = end
         image = audio_to_spectrogram(split_audio,f"{jpg_output_dir}/{file_name}_{i+1}")
-        image_array.append(image)
+        image_list.append(image)
         # print(i)
         # return split_audio
-    return image_array
+    return image_list
 
 # 測試用範例
 if __name__ == "__main__":

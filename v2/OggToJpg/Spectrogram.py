@@ -21,7 +21,7 @@ def audiosegment_to_numpy(audio_segment):
     return samples
 
 
-def audio_to_spectrogram(audio,name="A"):
+def audio_to_spectrogram(audio,name="A")->list:
     
     # 1. 讀取音訊並計算 Spectrogram
     y = audiosegment_to_numpy(audio)
@@ -49,29 +49,29 @@ def audio_to_spectrogram(audio,name="A"):
     # plt.show()
     plt.close(fig)  # 關閉圖表，釋放記憶體
     # image_rgb = image_array.convert("RGB")# 移除透明通道
-    return image_array
+    return image_array.tolist()
 
 # 使用示例
 if __name__ == "__main__":
-    # read entire folder
-    song_name = "song1"
-    folder_path = f"v2/data/split_ogg/{song_name}"
-    output_dir = f"v2/data/zip_testing_data/{song_name}"
-    os.makedirs(output_dir, exist_ok=True)
-    for filename in os.listdir(folder_path):
-        file_path = os.path.join(folder_path, filename)
+    # # read entire folder
+    # song_name = "song1"
+    # folder_path = f"v2/data/split_ogg/{song_name}"
+    # output_dir = f"v2/data/zip_testing_data/{song_name}"
+    # os.makedirs(output_dir, exist_ok=True)
+    # for filename in os.listdir(folder_path):
+    #     file_path = os.path.join(folder_path, filename)
         
-        # 讀取音檔
-        audio = AudioSegment.from_file(file_path)
+    #     # 讀取音檔
+    #     audio = AudioSegment.from_file(file_path)
         
-        # 移除副檔名，作為 spectrogram 的名稱
-        name = os.path.splitext(filename)[0]
+    #     # 移除副檔名，作為 spectrogram 的名稱
+    #     name = os.path.splitext(filename)[0]
         
-        # 轉換成 Spectrogram
-        audio_to_spectrogram(audio, output_dir+"/"+name)  # 假設這個函式已經定義
+    #     # 轉換成 Spectrogram
+    #     audio_to_spectrogram(audio, output_dir+"/"+name)  # 假設這個函式已經定義
 
     # read one file
-    # audio = AudioSegment.from_file("v2/data/level 6~7/song1/song1.ogg")
-    # audio_to_spectrogram(audio,"Spectrogram_test_jpg")
-    # print(audio_to_spectrogram(audio))#[255 0 0 128]
+    audio = AudioSegment.from_file("v2/data/level 6~7/song1/song1.ogg")
+    a= audio_to_spectrogram(audio,"Spectrogram_test_jpg")
+    print(type(a))#[255 0 0 128]
     

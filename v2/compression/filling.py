@@ -18,22 +18,24 @@ def biggest_piece():
 #song16
 
 
-def filling_label(label_list):
+def filling_label(label_list)->np.array:
     biggest = biggest_piece()
+    while (len(label_list)<biggest):
+        label_list.append(-1)
     label_array = np.array(label_list)
-    while (len(label_array)<biggest):
-        label_array.append(4)
     return label_array
 
 
-def filling_image(image_list):
+def filling_image(image_list)->np.array:
     print(type(image_list))
     biggest = biggest_piece()
-    w,h,z =image_list[0].shape
+    image_array = np.array(image_list)
+    w,h,z =image_array[0].shape
     filling_array = np.ones((w,h,z))*(-1)
     while (len(image_list)<biggest):
         image_list.append(filling_array)
-    return image_list
+    image_array = np.array(image_list)
+    return image_array
 
 if __name__ == '__main__':
     image_path = "v2/data/zip_testing_data/song1/song1_1.jpg"
