@@ -57,7 +57,7 @@ class TjaData():
     def Piece(self):
         start = False
         song_start = False
-        time = 0
+        times = 1
         a = self.ReadTja()
         for line in  a.split():
             line = line.strip()
@@ -70,12 +70,15 @@ class TjaData():
                 break
             
             if (start&(re.search(r',', line)!= None)):
-                if ((re.search(r',', line)!= [])&(song_start == False)):
-                    song_start = True
-                else:
-                    time = time+1
+                if (song_start == False):
+                    if (re.findall(r'(\d+),', line)!= []):
+                        song_start = True
+                    
+                elif (song_start == True):
+                    times = times+1
+                    
                 
-        return int(time*16)
+        return int(times*16)
 
 
 

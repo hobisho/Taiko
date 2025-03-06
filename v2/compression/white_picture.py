@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 
-def create_black_image(width, height, filename="v2/data/black_image.png"):
+def create_black_image(width, height, filename="v2/data/white_image.png"):
     # 創建全黑影像 (RGB 格式)
-    black_image = np.zeros((height, width, 3), dtype=np.uint8)
+    black_image = np.ones((height, width, 3), dtype=np.uint8)*255
     
     # 儲存影像 (確保為 RGB 格式)
     black_image = cv2.cvtColor(black_image, cv2.COLOR_BGR2RGB)

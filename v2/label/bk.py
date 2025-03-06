@@ -1,8 +1,8 @@
-def break_str(string_list):
+def break_str(string_list)->list:
     out=[]
     for string in string_list:
         for count in range (16):
-            out.append(string[count])
+            out.append(int(string[count]))
     return out
 
 if __name__ == '__main__':

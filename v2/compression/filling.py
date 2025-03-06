@@ -18,12 +18,11 @@ def biggest_piece():
 #song16
 
 
-def filling_label(label_list)->np.array:
+def filling_label(label_list)->list:
     biggest = biggest_piece()
     while (len(label_list)<biggest):
         label_list.append(-1)
-    label_array = np.array(label_list)
-    return label_array
+    return label_list
 
 
 def filling_image(image_list)->np.array:

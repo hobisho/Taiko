@@ -45,9 +45,9 @@ def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
         split_audio.export(output_path, format="ogg")
 
         start = end
-        image = audio_to_spectrogram(split_audio,f"{jpg_output_dir}/{file_name}_{i+1}")
+        audio_to_spectrogram(split_audio,f"{jpg_output_dir}/{file_name}_{i+1}")
     print("split end")
-    return image
+    # return image
 
 # 測試用範例
 if __name__ == "__main__":
