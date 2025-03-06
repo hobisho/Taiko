@@ -23,7 +23,6 @@ def compression_listpath(image_filename_list:list, label_list:list,tfrecords_fil
             if not os.path.exists(image_filename):
                 print(f"檔案 {image_filename} 不存在，跳過")
                 continue
-            print(f"檔案 {image_filename} ")
             # 讀取圖片
             image = imageio.imread(image_filename)
 
@@ -39,7 +38,7 @@ def compression_listpath(image_filename_list:list, label_list:list,tfrecords_fil
                 'width': _int64_feature(width),
                 'depth': _int64_feature(depth),
                 'image_string': _bytes_feature(image_string),
-                'label': _int64_feature([label])
+                'label': _float32_feature([label])
             }))
 
             writer.write(example.SerializeToString())
@@ -50,7 +49,7 @@ def compression_listpath(image_filename_list:list, label_list:list,tfrecords_fil
 if __name__ == '__main__':
     image_filename_list = []
     label_list = []
-    for numbers in range(0,10):
+    for numbers in range(1,961):
         image_filename_list.append(f"v2/data/zip_testing_data/song1/song1_{numbers}.jpg") 
         label_list.append(1)
     compression_listpath(image_filename_list, label_list)

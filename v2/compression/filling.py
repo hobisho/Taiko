@@ -27,7 +27,6 @@ def filling_label(label_list)->np.array:
 
 
 def filling_image(image_list)->np.array:
-    print(type(image_list))
     biggest = biggest_piece()
     image_array = np.array(image_list)
     w,h,z =image_array[0].shape

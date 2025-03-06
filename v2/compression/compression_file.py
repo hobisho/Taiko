@@ -24,9 +24,9 @@ def compression_file(image_array_list:list, label_list:list,tfrecords_filename:s
             time, height, width, depth = image_array.shape
             # 轉換為 bytes
             image_string = image_array.tobytes()
-            print(label)
+            # print(label)
             label_string = label.tobytes()
-            print(label_string)
+            # print(label_string)
 
             # 建立 TFRecord Example
             example = tf.train.Example(features=tf.train.Features(feature={

@@ -1,5 +1,6 @@
 from pydub import AudioSegment
 import os 
+import gc
 from tqdm import tqdm
 import sys
 from split_song.readdata import TjaData 
@@ -9,7 +10,6 @@ from Spectrogram import audio_to_spectrogram # type: ignore
 
 
 def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
-            
     ogg_file_path = None
     tja_data=TjaData(input_file)
     offset = tja_data.Offset() *1000
@@ -21,7 +21,7 @@ def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
             ogg_file_path = os.path.join(input_file, file)
             break
     
-    print(f"============================================ spliting {file_name} ============================================\n")
+    # print(f"============================================ spliting {file_name} ============================================\n")
     os.makedirs(f"{song_output_folder}/{file_name}", exist_ok=True)
     
     # 載入音檔
@@ -34,7 +34,6 @@ def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
     
     jpg_output_dir = f"{jpg_output_folder}/{file_name}"
     os.makedirs(jpg_output_dir, exist_ok=True)
-    image_list = []
     for i in tqdm(range(len(time_per_footage))):
         end = start + time_per_footage[i]*1000
         # print(end,start)
@@ -47,14 +46,12 @@ def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
 
         start = end
         image = audio_to_spectrogram(split_audio,f"{jpg_output_dir}/{file_name}_{i+1}")
-        image_list.append(image)
-        # print(i)
-        # return split_audio
-    return image_list
+    print("split end")
+    return image
 
 # 測試用範例
 if __name__ == "__main__":
-    input_audio = "v2/data/level 6~7/song1"  # 你的音檔
+    input_audio = "v2/data/level 6~7/song5"  # 你的音檔
     song_output_folder = "v2/data/split_ogg"  # 儲存資料夾
     jpg_output_folder = f"v2/data/zip_testing_data"
     process_audio(input_audio, song_output_folder,jpg_output_folder)

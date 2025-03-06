@@ -56,6 +56,7 @@ class TjaData():
         
     def Piece(self):
         start = False
+        song_start = False
         time = 0
         a = self.ReadTja()
         for line in  a.split():
@@ -69,13 +70,16 @@ class TjaData():
                 break
             
             if (start&(re.search(r',', line)!= None)):
-                time = time+1
+                if ((re.search(r',', line)!= [])&(song_start == False)):
+                    song_start = True
+                else:
+                    time = time+1
                 
         return int(time*16)
 
 
 
 if __name__ == "__main__":
-    tja_data=TjaData("v2/data/level 6~7/song1")
+    tja_data=TjaData("v2/data/level 6~7/song3")
     print( tja_data.Piece())
     print(tja_data.Bpm())

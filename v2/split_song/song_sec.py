@@ -1,3 +1,6 @@
+from split_song.readdata import TjaData 
+from pydub import AudioSegment
+
 def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
     duration = duration/1000
     take_off = take_off/1000
@@ -20,7 +23,7 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
             cut= duration_cut-cut_sum
             if (cut > 0.1):
                 time.append(cut)
-            print(cut_sum)
+            print("error:song not enough")
             return time
 
         cut_sum += cut
@@ -31,7 +34,11 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
         # print(cut, " ",cut_sum," ", n * ideal_per_cut)
     
 if __name__ == "__main__":
-    time = count_sec(bpm=125,duration=90841,take_off=3011,piece = 1808)#912
-    print((time))
+    audio = AudioSegment.from_file("v2/data/level 6~7/song3/song3.ogg")
+    print(len(audio))
+    tja_data=TjaData("v2/data/level 6~7/song3")
+    print(tja_data.Bpm(),  tja_data.Offset()*1000, tja_data.Piece())
+    time = count_sec(bpm=tja_data.Bpm(),duration=len(audio),take_off= tja_data.Offset()*1000,piece = tja_data.Piece())#912
+    print(len(time))
 
 

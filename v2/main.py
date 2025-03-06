@@ -22,8 +22,8 @@ def image_part(song_sumber)->np.array:
     song_output_folder = "v2/data/split_ogg"  # 儲存資料夾
     jpg_output_folder = f"v2/data/zip_testing_data"
     image_array = process_audio(input_audio, song_output_folder,jpg_output_folder)
-    filling_image_array = filling_image(image_array)
-    return filling_image_array
+    # filling_image_array = filling_image(image_array)
+    # return filling_image_array
 
 # if __name__ == "__main__":
 #     tfrecords_filename = 'v2/data/taiko.tfrecords'
@@ -37,8 +37,7 @@ def image_part(song_sumber)->np.array:
 
 if __name__ == "__main__":
     tfrecords_filename = 'v2/data/taiko.tfrecords'
-    label_array = labal_part(3)
-    image_array = image_part(3)
-    print(image_array.shape())
+    # label_array = labal_part(3)
+    image_array = image_part(5)
     # compression_file(label_array,image_array,tfrecords_filename)
     # overlay_compression(label_array,image_array,tfrecords_filename)
