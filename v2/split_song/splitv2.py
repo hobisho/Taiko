@@ -1,6 +1,5 @@
 from pydub import AudioSegment
 import os 
-import gc
 from tqdm import tqdm
 import sys
 from split_song.readdata import TjaData 
@@ -51,7 +50,7 @@ def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
 
 # 測試用範例
 if __name__ == "__main__":
-    input_audio = "v2/data/level 6~7/song5"  # 你的音檔
+    input_audio = "v2/data/level 6~7/song13"  # 你的音檔
     song_output_folder = "v2/data/split_ogg"  # 儲存資料夾
     jpg_output_folder = f"v2/data/zip_testing_data"
     process_audio(input_audio, song_output_folder,jpg_output_folder)

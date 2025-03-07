@@ -52,6 +52,6 @@ if __name__ == '__main__':
     label_list = []
     for numbers in range(1,1000):
         image_filename_list.append(f"v2/data/zip_testing_data/song1/song1_{numbers}.jpg") 
-        label_list.append(numbers)
+        label_list.append(numbers*(-1))
     compression_listpath(image_filename_list, label_list)
 

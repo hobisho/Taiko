@@ -76,11 +76,29 @@ def parse_tja_file(folder_path:str)->list:
                 print("error")
                 
             numbers.extend(word_list)
+    
+    #刪除前後的0
+    pop = 0
+    for i in range(len(numbers),0,-1):
+        if (numbers[i-1]=="0000000000000000"):
+            numbers.pop(i-1)
+        else:
+            break
+    for i in range(len(numbers)):
+        if (numbers[i]=="0000000000000000"):
+            pop = pop+1
+        else:
+            break
+    for i in range(pop):
+        numbers.pop(0)
     return numbers
 
 # 測試用
 if __name__ == "__main__":
-    file_path = "v2/data/level 6~7/song33"  # 這裡請換成你的.tja檔案路徑
-    result = parse_tja_file(file_path)
-    print(type(result))
+    for n in range(1, 2):
+        n = 32
+        file_path = f"v2/data/level 6~7/song{n}"  # 這裡請換成你的.tja檔案路徑
+        result = parse_tja_file(file_path)
+        print(result)
+        
 

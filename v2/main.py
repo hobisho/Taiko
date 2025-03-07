@@ -10,11 +10,12 @@ def compression (song_sumber,label_list):
     image_filename_list = []
     for numbers in range(1,biggest_piece()):
         image_filename_list.append(f"v2/data/zip_testing_data/song{song_sumber}/song{song_sumber}_{numbers}.jpg") 
+    # print(dir(image_filename_list))
     tfrecords_filename = f'v2/data/tfrecords/song{song_sumber}.tfrecords'
     compression_listpath(image_filename_list, label_list,tfrecords_filename)
 
 
-def labal_part(song_number)->np.array:
+def labal_part(song_number)->list:
     label_list = parse_tja_file(f"v2/data/level 6~7/song{song_number}")
     label_list = break_str(label_list)
     filling_label_list = filling_label(label_list)
@@ -29,10 +30,12 @@ def image_part(song_sumber)->np.array:
 
 
 if __name__ == "__main__":
-    song_sumber = 2
+    for song_sumber in range(1,46):
+        image_part(song_sumber)
+        label_list = labal_part(song_sumber)
+        compression(song_sumber,label_list)
+    # song_sumber = 2
     # image_part(song_sumber)
-    label_array = labal_part(song_sumber)
-    compression(song_sumber,label_array)
     # labal_part(5)
     # compression_file(label_array,image_array,tfrecords_filename)
     # overlay_compression(label_array,image_array,tfrecords_filename)

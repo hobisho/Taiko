@@ -51,8 +51,7 @@ class TjaData():
             # print(offset)
             return float(offset.group(1))
         else:
-            print(f"未找到 OFFSET 數值於")
-            return None
+            return 0
         
     def Piece(self):
         start = False
@@ -73,12 +72,15 @@ class TjaData():
                 if (song_start == False):
                     if (re.findall(r'(\d+),', line)!= []):
                         song_start = True
-                    
                 elif (song_start == True):
-                    times = times+1
+                    if (re.findall(r'(\d+),', line)== []):
+                        empty = empty+1
+                    else:
+                        times = times+1
+                        empty=0
                     
                 
-        return int(times*16)
+        return int((times-empty)*16)
 
 
 

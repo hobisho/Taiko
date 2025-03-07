@@ -19,16 +19,16 @@
 
 
 # Pip
-      pip install tenserflow
+      pip install tensorflow
       pip install ffmpeg
       pip install os
-      pip install opencv-python                            (CV2)
+      pip install opencv-python                       
       pip install soundfile
-      pip install pydub                                          (切割)
-      pip install tqdm                                            (進度條)
-      pip install librosa matplotlib numpy            (頻譜轉換)
-      pip install matplotlib==3.7.0                        (fft擷取)
-      pip install numpy==1.26.0                           (fft擷取)
+      pip install pydub                                      
+      pip install tqdm                                          
+      pip install librosa matplotlib numpy         
+      pip install matplotlib==3.7.0                   
+      pip install numpy==1.26.0                          
 
 
 
