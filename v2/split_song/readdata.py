@@ -86,6 +86,6 @@ class TjaData():
 
 
 if __name__ == "__main__":
-    tja_data=TjaData("v2/data/level 6~7/song2")
+    tja_data=TjaData("v2/data/level 6~7/song13")
     print( tja_data.Piece())
     print(tja_data.Bpm())

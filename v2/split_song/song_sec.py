@@ -24,7 +24,7 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
             if (cut > 0.1):
                 time.append(cut)
             print("error:song not enough")
-            return time
+            return -1
 
         cut_sum += cut
         n += 1
@@ -34,9 +34,9 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
         # print(cut, " ",cut_sum," ", n * ideal_per_cut)
     
 if __name__ == "__main__":
-    audio = AudioSegment.from_file("v2/data/level 6~7/song20/song20.ogg")
+    audio = AudioSegment.from_file("v2/data/level 6~7/song13/song13.ogg")
     print(len(audio))
-    tja_data=TjaData("v2/data/level 6~7/song20")
+    tja_data=TjaData("v2/data/level 6~7/song13")
     print(tja_data.Bpm(),  tja_data.Offset()*1000, tja_data.Piece())
     time = count_sec(bpm=tja_data.Bpm(),duration=len(audio),take_off= tja_data.Offset()*1000,piece = tja_data.Piece())#912
     print(len(time))
