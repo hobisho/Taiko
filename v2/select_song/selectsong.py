@@ -1,6 +1,10 @@
 import os
 import re
 import shutil
+import sys
+sys.path.append(r"v2/label")
+from tjaread import parse_tja_file
+
 
 def extract_level_value(folder_path):
     # 找出資料夾內的 .tja 檔案（不考慮最前面的數字）
@@ -28,6 +32,8 @@ def extract_level_value(folder_path):
     if bpmchange:
         return int(0)
     elif measure:
+        return int(0)
+    elif parse_tja_file(folder_path)==None:
         return int(0)
     elif match:
         return int(match.group(1))    

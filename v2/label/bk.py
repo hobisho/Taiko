@@ -2,6 +2,7 @@ def break_str(string_list)->list:
     out=[]
     for string in string_list:
         for count in range (16):
+            print(string[count])
             out.append(int(string[count]))
     return out
 

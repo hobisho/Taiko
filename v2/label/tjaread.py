@@ -73,7 +73,8 @@ def parse_tja_file(folder_path:str)->list:
 
             #if it can't be devide by 4
             else:
-                print("error")
+                print("song can't be 16")
+                return None
                 
             numbers.extend(word_list)
     
