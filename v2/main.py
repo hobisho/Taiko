@@ -20,8 +20,8 @@ def labal_part(song_number)->list:
     label_list = parse_tja_file(f"v2/data/level 6~7/song{song_number}")
     print(label_list)
     label_list = break_str(label_list)
-    # filling_label_list = filling_label(label_list)
-    # return filling_label_list
+    filling_label_list = filling_label(label_list)
+    return filling_label_list
 
 
 def image_part(song_sumber)->np.array:
@@ -32,7 +32,7 @@ def image_part(song_sumber)->np.array:
 
 
 if __name__ == "__main__":
-    for song_sumber in range(1,len(os.listdir("v2/data/level 6~7/"))+1):
+    for song_sumber in range(2,len(os.listdir("v2/data/level 6~7/"))+1):
         image_part(song_sumber)
         label_list = labal_part(song_sumber)
         compression(song_sumber,label_list)
