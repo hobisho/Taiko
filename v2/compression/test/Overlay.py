@@ -1,6 +1,6 @@
 import numpy as np
 from PIL import Image
-from compression.compression_file import compression_file
+from compression.test.compression_file import compression_file
 from compression.decompression import decompression 
 
 

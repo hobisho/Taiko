@@ -36,7 +36,8 @@ def filling_image(image_list)->np.array:
     return image_array
 
 if __name__ == '__main__':
-    biggest_piece()
+    print(biggest_piece())
+    
     # image_path = "v2/data/zip_testing_data/song1/song1_1.jpg"
     # image = Image.open(image_path)
     # image = image.convert("RGB") 
