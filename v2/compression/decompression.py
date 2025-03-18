@@ -33,6 +33,7 @@ def decompression(tfrecords_filename):
 
         # 將 bytes 轉換回 NumPy 陣列
         image_1d = np.frombuffer(image_string, dtype=np.uint8)
+        print(height, width, depth)
         image = image_1d.reshape((height, width, depth))
         image_list.append(image)
         label_list.append(label)
@@ -53,7 +54,7 @@ def _parse_function(proto):
 
 
 if __name__ == '__main__':
-    tfrecords_filename = 'v2/data/tfrecords/song1.tfrecords'
+    tfrecords_filename = 'E://tfrecords/song2.tfrecords'
     image_list, label_list = decompression(tfrecords_filename)
     image_array = np.array(image_list)
     label_array = np.array(label_list)

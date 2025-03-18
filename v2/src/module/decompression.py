@@ -9,7 +9,7 @@ def _parse_function(proto):
         'width': tf.io.FixedLenFeature([], tf.int64),
         'depth': tf.io.FixedLenFeature([], tf.int64),
         'image_string': tf.io.FixedLenFeature([], tf.string),
-        'label': tf.io.FixedLenFeature([], tf.float32),
+        'label_string': tf.io.FixedLenFeature([], tf.string),
     }
     return tf.io.parse_single_example(proto, feature_description)
 
@@ -29,13 +29,14 @@ def decompression(tfrecords_filename):
         width = int(record['width'].numpy())
         depth = int(record['depth'].numpy())
         image_string = record['image_string'].numpy()
-        label = int(record['label'].numpy())
+        label_string = record['label_string'].numpy()
 
         # 將 bytes 轉換回 NumPy 陣列
         image_1d = np.frombuffer(image_string, dtype=np.uint8)
+        label_1d = np.frombuffer(label_string, dtype=np.uint8)
         image = image_1d.reshape((height, width, depth))
         image_list.append(image)
-        label_list.append(label)
+        label_list.append(label_1d)
 
     return image_list, label_list
 
@@ -46,15 +47,16 @@ def _parse_function(proto):
         'width': tf.io.FixedLenFeature([], tf.int64),
         'depth': tf.io.FixedLenFeature([], tf.int64),
         'image_string': tf.io.FixedLenFeature([], tf.string),
-        'label': tf.io.FixedLenFeature([], tf.int64),
+        'label_string': tf.io.FixedLenFeature([], tf.string),
     }
     
     return tf.io.parse_single_example(proto, feature_description)
 
 
 if __name__ == '__main__':
-    tfrecords_filename = 'v2/data/tfrecords/song1.tfrecords'
+    tfrecords_filename = 'E://tfrecords/song1.tfrecords'
     image_list, label_list = decompression(tfrecords_filename)
     image_array = np.array(image_list)
     label_array = np.array(label_list)
-    print(image_list[980])
+    for i in range(len(label_array)):
+        print(label_array[i-1])
