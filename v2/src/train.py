@@ -191,25 +191,25 @@ num_classes = 4
 batch_size = 1        # 較小的 batch_size 可降低記憶體需求
 num_epochs = 5            # 訓練的 epochs 數量  
 
-# 取得目前程式檔案所在的目錄（如果在互動模式下執行，則可改用 os.getcwd()）
-base_dir = os.path.dirname(os.path.abspath(__file__))
-# 設定目標資料夾路徑：當前檔案所在目錄下的 "src/models"
-models_dir = os.path.join(base_dir, "models")
-# 如果 "models" 資料夾不存在，就建立它
-if not os.path.exists(models_dir):
-    os.makedirs(models_dir)
-# 指定要儲存的檔案路徑
-model_path = os.path.join(models_dir, "checkpoint.pth")
-best_model_path = os.path.join(models_dir, "checkpoint_best.pth")
-# 如果檔案不存在，建立空檔案（通常 torch.save 會自動建立檔案，但你可以預先檢查）
-if not os.path.isfile(model_path):
-    with open(model_path, "a") as f:
-        pass
-if not os.path.isfile(best_model_path):
-    with open(best_model_path, "a") as f:
-        pass
-
 if __name__ == "__main__":
+    # 取得目前程式檔案所在的目錄（如果在互動模式下執行，則可改用 os.getcwd()）
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    # 設定目標資料夾路徑：當前檔案所在目錄下的 "src/models"
+    models_dir = os.path.join(base_dir, "models")
+    # 如果 "models" 資料夾不存在，就建立它
+    if not os.path.exists(models_dir):
+        os.makedirs(models_dir)
+    # 指定要儲存的檔案路徑
+    model_path = os.path.join(models_dir, "checkpoint.pth")
+    best_model_path = os.path.join(models_dir, "checkpoint_best.pth")
+    # 如果檔案不存在，建立空檔案（通常 torch.save 會自動建立檔案，但你可以預先檢查）
+    if not os.path.isfile(model_path):
+        with open(model_path, "a") as f:
+            pass
+    if not os.path.isfile(best_model_path):
+        with open(best_model_path, "a") as f:
+            pass
+
     # train_dataset = DummyDataset(num_samples, seq_length, orig_H, orig_W, C,
     #                             num_classes, target_H, target_W)
     file_list = [f"E://tfrecords/song{i}.tfrecords" for i in range(1, num_samples+1)]
