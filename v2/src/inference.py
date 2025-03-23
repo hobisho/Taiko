@@ -47,7 +47,7 @@ print("模型載入完成。")
 # 2. 從 tfrecords 讀取資料並前處理
 # -------------------------------
 # 使用 inferance.py 中的 decompression 讀取 tfrecords 資料
-tfrecords_filename = 'E://tfrecords/song1.tfrecords'
+tfrecords_filename = 'E://tfrecords/song5.tfrecords'
 image_list, label_list = decompression(tfrecords_filename)
 image_array = np.array(image_list)
 print("原始圖片 shape:", image_array.shape)
@@ -73,27 +73,55 @@ with torch.no_grad():
     # one-hot 編碼轉換為類別
     # predicted_labels = torch.argmax(F.softmax(outputs, dim=2), dim=2)
     probabilities = F.softmax(outputs, dim=2)  # shape: (B, seq_length, num_classes)
+    print("機率:", probabilities)
 
     # 第三和第四的機率相加
-    combined = probabilities[:, :, 2] + probabilities[:, :, 3]
+    # combined = probabilities[:, :, 2] + probabilities[:, :, 3]
 
-    # 排除原第三與第四的機率
-    pre_combine = probabilities[:, :, :2]       # 取前兩個
-    post_combine = probabilities[:, :, 4:]      # 跳過第三、第四之後剩下的
+    # # 排除原第三與第四的機率
+    # pre_combine = probabilities[:, :, :2]       # 取前兩個
+    # post_combine = probabilities[:, :, 4:]      # 跳過第三、第四之後剩下的
 
-    # 新的機率陣列 (第三個位置為合併後機率)
-    new_probabilities = torch.cat([
-        pre_combine,
-        combined.unsqueeze(dim=2),
-        post_combine
-    ], dim=2)
+    # # 新的機率陣列 (第三個位置為合併後機率)
+    # new_probabilities = torch.cat([
+    #     pre_combine,
+    #     combined.unsqueeze(dim=2),
+    #     post_combine
+    # ], dim=2)
 
-    new_probabilities = torch.zeros_like(outputs)
-    new_probabilities.scatter_(-1, outputs.argmax(dim=-1, keepdim=True), 1)
+    # new_probabilities = torch.zeros_like(outputs)
+    # new_probabilities.scatter_(-1, outputs.argmax(dim=-1, keepdim=True), 1)
 
 # print("推論完成。")
 # print("預測結果 shape:", predicted_labels.shape)
-print("預測結果 (每張圖片的類別):")
-for i in range(300):
-    print(new_probabilities[0, i])
+# print("預測結果 (每張圖片的類別):")
+k=[]
+p=0
+evg = [0,0,0,0]
+for i in range(500):
+    a = probabilities[0, i]
+    a = a.tolist()
+    for j in range(4):
+        evg[j] += a[j]
+for j in range(4):
+        evg[j] = evg[j]/500
+for i in range(probabilities.shape[1]):
+    a = probabilities[0, i]
+    a = a.tolist()
+    if a[1] > evg[1]:
+        print(0,end="")
+        p=p+1
+    elif a[2] > evg[2]:
+        print(1,end="")
+        p=p+1
+    elif a[3] > evg[3]:
+        print(2,end="")
+        p=p+1
+    else:
+        break
+    if ((i%16)==15):
+	    print(",")
+print(p)
+
+# print(k)
 # # print(predicted_labels)
