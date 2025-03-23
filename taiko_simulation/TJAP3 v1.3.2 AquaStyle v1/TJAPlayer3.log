@@ -1,0 +1,214 @@
+
+DTXMania powered by YAMAHA Silent Session Drums
+Release: 1.3.2
+
+2025/03/23 02:34:05.031 [INFO] ----------------------
+2025/03/23 02:34:05.031 [INFO] ■ アプリケーションの初期化
+2025/03/23 02:34:05.031 [INFO] OS Version: Microsoft Windows NT 6.2.9200.0
+2025/03/23 02:34:05.031 [INFO] ProcessorCount: 24
+2025/03/23 02:34:05.031 [INFO] CLR Version: 2.0.50727.9179
+2025/03/23 02:34:05.204 [INFO] スキンの初期化を行います。
+2025/03/23 02:34:05.206 [INFO]     SkinPath検出: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleIM\
+2025/03/23 02:34:05.206 [INFO]     SkinPath検出: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleLL\
+2025/03/23 02:34:05.206 [INFO]     SkinPath検出: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleNS\
+2025/03/23 02:34:05.206 [INFO]     SkinPath検出: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleR\
+2025/03/23 02:34:05.206 [INFO]     SkinPath検出: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleS\
+2025/03/23 02:34:05.206 [INFO]     SkinPath検出: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\
+2025/03/23 02:34:05.206 [INFO]     SkinPath入力: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\
+2025/03/23 02:34:05.207 [INFO]     SkinPath設定: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\
+2025/03/23 02:34:05.212 [INFO]     スキンの初期化を完了しました。
+2025/03/23 02:34:05.213 [INFO] タイマの初期化を行います。
+2025/03/23 02:34:05.213 [INFO]     タイマの初期化を完了しました。
+2025/03/23 02:34:05.213 [INFO] FPSカウンタの初期化を行います。
+2025/03/23 02:34:05.213 [INFO]     FPSカウンタを生成しました。
+2025/03/23 02:34:05.213 [INFO] 文字コンソールの初期化を行います。
+2025/03/23 02:34:05.213 [INFO]     文字コンソールを生成しました。
+2025/03/23 02:34:05.220 [INFO]     文字コンソールを活性化しました。
+2025/03/23 02:34:05.220 [INFO]     文字コンソールの初期化を完了しました。
+2025/03/23 02:34:05.220 [INFO] DirectInput, MIDI入力の初期化を行います。
+2025/03/23 02:34:05.303 [INFO]     鍵盤 を生成しました。
+2025/03/23 02:34:05.303 [INFO]     滑鼠 を生成しました。
+2025/03/23 02:34:05.342 [INFO]     MIDI入力デバイス数: 0
+2025/03/23 02:34:05.342 [INFO]     DirectInput の初期化を完了しました。
+2025/03/23 02:34:05.342 [INFO] パッドの初期化を行います。
+2025/03/23 02:34:05.344 [INFO]     パッドの初期化を完了しました。
+2025/03/23 02:34:05.344 [INFO] サウンドデバイスの初期化を行います。
+2025/03/23 02:34:05.346 [INFO]     BASS (ASIO) の初期化を開始します。
+2025/03/23 02:34:05.352 [INFO]     BASS (ASIO) の初期化に失敗しました。(BASS_ASIO_Init)[BASS_OK; The device may be dissconnected]
+2025/03/23 02:34:05.352 [INFO]     DirectSound の初期化を開始します。
+2025/03/23 02:34:05.384 [INFO]     DirectSound を初期化しました。(Priority)(FDKtimer)
+2025/03/23 02:34:05.385 [INFO]     BASS_CONFIG_UpdatePeriod=100
+2025/03/23 02:34:05.385 [INFO]     BASS_CONFIG_UpdateThreads=1
+2025/03/23 02:34:05.387 [INFO]     サウンドデバイスの初期化を完了しました。
+2025/03/23 02:34:05.387 [INFO] 曲リストの初期化を行います。
+2025/03/23 02:34:05.387 [INFO]     曲リストの初期化を完了しました。
+2025/03/23 02:34:05.455 [INFO] プラグインの検索と生成を行います。
+2025/03/23 02:34:05.456 [WARNING]     プラグインフォルダが存在しません。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Plugins\)
+2025/03/23 02:34:05.456 [INFO]     プラグインの検索と生成を完了しました。
+2025/03/23 02:34:05.456 [INFO] アプリケーションの初期化を完了しました。
+2025/03/23 02:34:05.456 [INFO] ----------------------
+2025/03/23 02:34:05.456 [INFO] ■ 起動
+2025/03/23 02:34:05.456 [INFO] 起動ステージを活性化します。
+2025/03/23 02:34:05.485 [INFO]     起動ステージの活性化を完了しました。
+2025/03/23 02:34:05.496 [INFO] 0) システムサウンドを構築します。
+2025/03/23 02:34:05.505 [INFO]     システムサウンドを読み込みました。(Sounds\Move.ogg)
+2025/03/23 02:34:05.512 [INFO]     システムサウンドを読み込みました。(Sounds\Decide.ogg)
+2025/03/23 02:34:05.517 [INFO]     システムサウンドを読み込みました。(Sounds\Change.ogg)
+2025/03/23 02:34:05.520 [INFO]     システムサウンドを読み込みました。(Sounds\Cancel.ogg)
+2025/03/23 02:34:05.536 [INFO]     システムサウンドを読み込みました。(Sounds\Audience.ogg)
+2025/03/23 02:34:05.550 [INFO]     システムサウンドを読み込みました。(Sounds\Game start.ogg)
+2025/03/23 02:34:05.571 [INFO]     システムサウンドを読み込みました。(Sounds\Full combo.ogg)
+2025/03/23 02:34:05.575 [INFO]     システムサウンドを読み込みました。(Sounds\balloon.ogg)
+2025/03/23 02:34:05.588 [INFO]     システムサウンドを読み込みました。(Sounds\SongDecide.ogg)
+2025/03/23 02:34:05.604 [INFO]     システムサウンドを読み込みました。(Sounds\ResultIn.ogg)
+2025/03/23 02:34:05.604 [INFO] 1) songlist.dbを読み込みます。
+2025/03/23 02:34:05.607 [INFO]     songlist.db の読み込みを完了しました。[1スコア]
+2025/03/23 02:34:05.607 [INFO] 2) songs.db を読み込みます。
+2025/03/23 02:34:05.608 [INFO]     songs.db の読み込みを完了しました。[1スコア]
+2025/03/23 02:34:05.608 [INFO] 起動所要時間: 00:00:00.1126181
+2025/03/23 02:34:05.614 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\Enum_Song.png)
+2025/03/23 02:34:05.691 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\3_SongSelect\Frame_Box.png)
+2025/03/23 02:34:05.693 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\3_SongSelect\Frame_Random.png)
+2025/03/23 02:34:06.267 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_Game\0\Background.png)
+2025/03/23 02:34:06.660 [INFO] 起動ステージを非活性化します。
+2025/03/23 02:34:06.662 [INFO]     起動ステージの非活性化を完了しました。
+2025/03/23 02:34:06.662 [INFO] ----------------------
+2025/03/23 02:34:06.662 [INFO] ■ タイトル
+2025/03/23 02:34:06.662 [INFO] タイトルステージを活性化します。
+2025/03/23 02:34:06.663 [INFO]     タイトルステージの活性化を完了しました。
+2025/03/23 02:34:06.777 [INFO] ★曲データ検索スレッドを起動しました。
+2025/03/23 02:34:06.779 [INFO] enum2) 曲データを検索します。
+2025/03/23 02:34:06.779 [INFO]     検索パス: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\./
+2025/03/23 02:34:06.873 [INFO]     曲データの検索を完了しました。[2曲2スコア]
+2025/03/23 02:34:06.873 [INFO] enum3) songs.db の情報を曲リストへ反映します。
+2025/03/23 02:34:06.874 [INFO]     曲リストへの反映を完了しました。[0/2スコア]
+2025/03/23 02:34:06.874 [INFO] 2, 0
+2025/03/23 02:34:06.874 [INFO] enum4) songs.db になかった曲データ[2スコア]の情報をファイルから読み込んで反映します。
+2025/03/23 02:34:06.885 [INFO]     曲データへの反映を完了しました。[2/2スコア]
+2025/03/23 02:34:06.885 [INFO] enum5) 曲リストへの後処理を適用します。
+2025/03/23 02:34:06.889 [INFO]     曲リストへの後処理を完了しました。
+2025/03/23 02:34:06.889 [INFO] enum6) 曲データの情報を songs.db へ出力します。
+2025/03/23 02:34:06.890 [INFO]     songs.db への出力を完了しました。[2スコア]
+2025/03/23 02:34:06.890 [INFO] enum7) 曲データの情報を songlist.db へ出力します。
+2025/03/23 02:34:06.892 [INFO]     songlist.db への出力を完了しました。[2スコア]
+2025/03/23 02:34:06.892 [INFO] 曲探索所要時間: 00:00:00.1136492
+2025/03/23 02:34:15.942 [INFO] タイトルステージを非活性化します。
+2025/03/23 02:34:15.942 [INFO]     タイトルステージの非活性化を完了しました。
+2025/03/23 02:34:15.942 [INFO] ----------------------
+2025/03/23 02:34:15.942 [INFO] ■ 選曲
+2025/03/23 02:34:15.942 [INFO] 選曲ステージを活性化します。
+2025/03/23 02:34:15.951 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\Screen option panels.png)
+2025/03/23 02:34:15.962 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_preimage panel.png)
+2025/03/23 02:34:15.962 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_sensor.png)
+2025/03/23 02:34:15.963 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_preimage default.png)
+2025/03/23 02:34:15.965 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information_BG.png)
+2025/03/23 02:34:15.965 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information.png)
+2025/03/23 02:34:15.965 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information2.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffselect_background.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffselect_header_panel.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_footer panel.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information_BG.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table0.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table1.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table2.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table3.png)
+2025/03/23 02:34:15.966 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table4.png)
+2025/03/23 02:34:15.966 [INFO]     選曲ステージの活性化を完了しました。
+2025/03/23 02:34:16.722 [INFO] プレビューサウンドを生成しました。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Songs\song40\song40.ogg)
+2025/03/23 02:34:17.609 [INFO] プレビューサウンドを生成しました。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Songs\song1\song1.ogg)
+2025/03/23 02:34:19.069 [INFO] プレビューサウンドを生成しました。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Songs\song40\song40.ogg)
+2025/03/23 02:34:29.225 [INFO] 選曲ステージを非活性化します。
+2025/03/23 02:34:29.227 [INFO]     選曲ステージの非活性化を完了しました。
+2025/03/23 02:34:29.227 [INFO] ----------------------
+2025/03/23 02:34:29.227 [INFO] ■ 曲読み込み
+2025/03/23 02:34:29.228 [INFO] 曲読み込みステージを活性化します。
+2025/03/23 02:34:29.261 [INFO]     曲読み込みステージの活性化を完了しました。
+2025/03/23 02:34:29.286 [INFO] ----曲情報-----------------
+2025/03/23 02:34:29.286 [INFO] TITLE: Makafushigi Adventure!
+2025/03/23 02:34:29.286 [INFO] FILE: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Songs\song40\song40.tja
+2025/03/23 02:34:29.286 [INFO] ---------------------------
+2025/03/23 02:34:29.286 [INFO] DTX読込所要時間:           00:00:00.0009992
+2025/03/23 02:34:30.801 [INFO] WAV読込所要時間(   1):     00:00:01.5156085
+2025/03/23 02:34:30.816 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_Game\5_Background\0\Background.png)
+2025/03/23 02:34:30.825 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\ScreenSelect level numbers.png)
+2025/03/23 02:34:30.930 [INFO] 総読込時間:                00:00:01.6458250
+2025/03/23 02:34:32.227 [INFO] 曲読み込みステージを非活性化します。
+2025/03/23 02:34:32.227 [INFO]     曲読み込みステージの非活性化を完了しました。
+2025/03/23 02:34:32.227 [INFO] ----------------------
+2025/03/23 02:34:32.227 [INFO] ■ 演奏（ドラム画面）
+2025/03/23 02:35:05.800 [INFO] CStage演奏画面共通 リソースの開放
+2025/03/23 02:35:05.808 [INFO] ----------------------
+2025/03/23 02:35:05.808 [INFO] ■ 選曲
+2025/03/23 02:35:05.808 [INFO] 選曲ステージを活性化します。
+2025/03/23 02:35:05.808 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\Screen option panels.png)
+2025/03/23 02:35:05.883 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_preimage panel.png)
+2025/03/23 02:35:05.883 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_sensor.png)
+2025/03/23 02:35:05.883 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_preimage default.png)
+2025/03/23 02:35:05.884 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information_BG.png)
+2025/03/23 02:35:05.884 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information.png)
+2025/03/23 02:35:05.884 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information2.png)
+2025/03/23 02:35:05.884 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffselect_background.png)
+2025/03/23 02:35:05.884 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffselect_header_panel.png)
+2025/03/23 02:35:05.884 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_footer panel.png)
+2025/03/23 02:35:05.884 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information_BG.png)
+2025/03/23 02:35:05.885 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_information.png)
+2025/03/23 02:35:05.885 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table0.png)
+2025/03/23 02:35:05.885 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table1.png)
+2025/03/23 02:35:05.885 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table2.png)
+2025/03/23 02:35:05.885 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table3.png)
+2025/03/23 02:35:05.885 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_diffSelect_table4.png)
+2025/03/23 02:35:05.885 [INFO]     選曲ステージの活性化を完了しました。
+2025/03/23 02:35:06.647 [INFO] プレビューサウンドを生成しました。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Songs\song40\song40.ogg)
+2025/03/23 02:40:51.908 [INFO] 選曲ステージを非活性化します。
+2025/03/23 02:40:51.909 [INFO]     選曲ステージの非活性化を完了しました。
+2025/03/23 02:40:51.909 [INFO] ----------------------
+2025/03/23 02:40:51.909 [INFO] ■ 曲読み込み
+2025/03/23 02:40:51.909 [INFO] 曲読み込みステージを活性化します。
+2025/03/23 02:40:51.933 [INFO]     曲読み込みステージの活性化を完了しました。
+2025/03/23 02:40:51.943 [INFO] ----曲情報-----------------
+2025/03/23 02:40:51.943 [INFO] TITLE: Makafushigi Adventure!
+2025/03/23 02:40:51.943 [INFO] FILE: C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Songs\song40\song40.tja
+2025/03/23 02:40:51.943 [INFO] ---------------------------
+2025/03/23 02:40:51.943 [INFO] DTX読込所要時間:           00:00:00.0009851
+2025/03/23 02:40:53.479 [INFO] WAV読込所要時間(   1):     00:00:01.5353692
+2025/03/23 02:40:53.485 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\5_Game\5_Background\0\Background.png)
+2025/03/23 02:40:53.492 [ERROR] テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\ScreenSelect level numbers.png)
+2025/03/23 02:40:53.581 [INFO] 総読込時間:                00:00:01.6392116
+2025/03/23 02:40:54.908 [INFO] 曲読み込みステージを非活性化します。
+2025/03/23 02:40:54.909 [INFO]     曲読み込みステージの非活性化を完了しました。
+2025/03/23 02:40:54.909 [INFO] ----------------------
+2025/03/23 02:40:54.909 [INFO] ■ 演奏（ドラム画面）
+2025/03/23 02:42:47.101 [INFO] CStage演奏画面共通 リソースの開放
+2025/03/23 02:42:47.107 [INFO] ----------------------
+2025/03/23 02:42:47.107 [INFO] ■ 結果
+2025/03/23 02:42:47.108 [INFO] 結果ステージを活性化します。
+2025/03/23 02:42:47.113 [ERROR]     テクスチャファイルが見つかりませんでした。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\System\AquaStyleY\Graphics\Screen option panels.png)
+2025/03/23 02:42:47.113 [INFO]     結果ステージの活性化を完了しました。
+2025/03/23 02:56:34.221 [INFO] ----------------------
+2025/03/23 02:56:34.221 [INFO] ■ アプリケーションの終了
+2025/03/23 02:56:34.221 [INFO] 曲検索actの終了処理を行います。
+2025/03/23 02:56:34.221 [INFO]     曲検索actの終了処理を完了しました。
+2025/03/23 02:56:34.221 [INFO] 現在のステージを終了します。
+2025/03/23 02:56:34.221 [INFO]     現在のステージの終了処理を完了しました。
+2025/03/23 02:56:34.221 [INFO] 曲リストの終了処理を行います。
+2025/03/23 02:56:34.221 [INFO]     曲リストの終了処理を完了しました。
+2025/03/23 02:56:34.237 [INFO] スキンの終了処理を行います。
+2025/03/23 02:56:34.238 [INFO]     スキンの終了処理を完了しました。
+2025/03/23 02:56:34.238 [INFO] DirectSound の終了処理を行います。
+2025/03/23 02:56:34.241 [INFO]     DirectSound の終了処理を完了しました。
+2025/03/23 02:56:34.241 [INFO] パッドの終了処理を行います。
+2025/03/23 02:56:34.241 [INFO]     パッドの終了処理を完了しました。
+2025/03/23 02:56:34.241 [INFO] DirectInput, MIDI入力の終了処理を行います。
+2025/03/23 02:56:34.242 [INFO]     DirectInput, MIDI入力の終了処理を完了しました。
+2025/03/23 02:56:34.242 [INFO] 文字コンソールの終了処理を行います。
+2025/03/23 02:56:34.242 [INFO]     文字コンソールの終了処理を完了しました。
+2025/03/23 02:56:34.242 [INFO] FPSカウンタの終了処理を行います。
+2025/03/23 02:56:34.242 [INFO]     FPSカウンタの終了処理を完了しました。
+2025/03/23 02:56:34.242 [INFO] タイマの終了処理を行います。
+2025/03/23 02:56:34.242 [INFO]     タイマの終了処理を完了しました。
+2025/03/23 02:56:34.242 [INFO] Config.ini を出力します。
+2025/03/23 02:56:34.246 [INFO]     保存しました。(C:\Users\User\Downloads\TJAP3 v1.3.2 AquaStyle v1\TJAP3 v1.3.2 AquaStyle v1\Config.ini)
+2025/03/23 02:56:34.246 [INFO] アプリケーションの終了処理を完了しました。
+
+遊んでくれてありがとう！
