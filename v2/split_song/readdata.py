@@ -51,12 +51,13 @@ class TjaData():
             # print(offset)
             return float(offset.group(1))
         else:
-            print(f"未找到 OFFSET 數值於")
-            return None
+            return 0
         
     def Piece(self):
         start = False
-        time = 0
+        song_start = False
+        empty=0
+        times = 1
         a = self.ReadTja()
         for line in  a.split():
             line = line.strip()
@@ -65,16 +66,26 @@ class TjaData():
                 continue
             
             if line.upper() == "#END":
-                print("end")
+                # print("end")
                 break
             
             if (start&(re.search(r',', line)!= None)):
-                time = time+1
+                if (song_start == False):
+                    if (re.findall(r'(\d+),', line)!= []):
+                        song_start = True
+                elif (song_start == True):
+                    if (re.findall(r'(\d+),', line)== []):
+                        empty = empty+1
+                    else:
+                        times = times+1
+                        empty=0
+                    
                 
-        return int(time*16)
+        return int((times-empty)*16)
 
 
 
 if __name__ == "__main__":
-    tja_data=TjaData("level 6~7/1_song")
+    tja_data=TjaData("v2/data/level 6~7/song13")
     print( tja_data.Piece())
+    print(tja_data.Bpm())

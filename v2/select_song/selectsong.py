@@ -1,6 +1,10 @@
 import os
 import re
 import shutil
+import sys
+sys.path.append(r"v2/label")
+from tjaread import parse_tja_file
+
 
 def extract_level_value(folder_path):
     # 找出資料夾內的 .tja 檔案（不考慮最前面的數字）
@@ -23,7 +27,13 @@ def extract_level_value(folder_path):
     # 使用正則表達式提取 LEVEL: 後的數值BPMCHANGE
     match = re.search(r'LEVEL:\s*(\d+)', content)
     bpmchange = re.search(r'BPMCHANGE', content)
+    measure = re.search(r'MEASURE', content)
+    
     if bpmchange:
+        return int(0)
+    elif measure:
+        return int(0)
+    elif parse_tja_file(folder_path)==None:
         return int(0)
     elif match:
         return int(match.group(1))    
@@ -46,6 +56,8 @@ def copy_folder_if_level_in_range(root_folder, destination_folder):
                 print(f"已複製 {subfolder} 到 {dest_path}")
 
 if __name__ == "__main__":
-    root_folder_path = "Taiko-switch/1. J-POP"  # 請修改為你的資料夾路徑
-    destination_folder_path = "Taiko-switch/level 6~7"  # 請修改為你的目標資料夾路徑
-    copy_folder_if_level_in_range(root_folder_path, destination_folder_path)
+    root_folder = "Taiko-switch"
+    for subfolder in os.listdir(root_folder):
+        root_folder_path = os.path.join(root_folder, subfolder)  # 請修改為你的資料夾路徑
+        destination_folder_path = "v2/data/level 6~7"  # 請修改為你的目標資料夾路徑
+        copy_folder_if_level_in_range(root_folder_path, destination_folder_path)
