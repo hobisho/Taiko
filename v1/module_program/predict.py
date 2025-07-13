@@ -13,6 +13,32 @@ from txt_main      import labal_array
 from orange import taiko
 
 
+def to_binary(chart):
+    # 0: 無敲擊, 1/2: 有敲擊
+    return [int(x > 0) for x in chart]
+
+def direct_comparison(x, y):
+    return np.mean(np.array(x) == np.array(y))
+
+def onset_comparison(human, ai, tolerance=1):
+    human_bin = to_binary(human)
+    ai_bin = to_binary(ai)
+    hit_count = 0
+    total_count = 0
+    L = len(human_bin)
+    for i in range(L):
+        if human_bin[i] == 1:
+            total_count += 1
+            match = False
+            for j in range(max(0, i-tolerance), min(L, i+tolerance+1)):
+                if ai_bin[j] == 1:
+                    match = True
+                    break
+            if match:
+                hit_count += 1
+    return hit_count / total_count if total_count > 0 else 0
+
+
 X_train = main('./v1\module_program\BIG_ZIP')
 # X_train = np.array(X_train[1])
 X_train=X_train.reshape( X_train.shape[0], X_train.shape[1] ,X_train.shape[2] ,X_train.shape[3],3).astype("float32") #convlstm(,1,23,32,3)
@@ -45,52 +71,106 @@ weight = list(weight)
 print(weight)
 
 
-model = load_model('v1/TaikoCLSTM.h5')
+model = load_model('v1/V1TaikoCLSTM.h5')
 result = model.predict(X_train[0:])
+all_ochuman= 0
+all_dcrand = 0
+all_dchuman = 0
 
-weight_array = np.array([1 , 10.6 , 13.432458 , 0.6])#4.56 [1 , 10.5333 , 13.432458 , 0.6
-t=0
-one=0
-two=0
-th=0
-while t<912:
-	j = result[0][t]
-	k = j * weight_array
-	k = k.tolist()
-	# if (k[1]>0.33):
-	# 	out = 1
-	# else:
-	maxs = np.where(k==np.max(k))
-	a = maxs[0]
-	a = a.tolist()
-	out = a[0]
-	one = one + k[0]
-	two = two + k[1]
-	th = th + k[2]
-	print(out,end = "")
-	if (t%16==15):
-		print(",")
-	# print(np.max(k))
-	t=t+1
+ll= [0, 1, 2, 3, 5, 6]  # 假設有7首歌
 
-# print(result)
-print(one/two)
-print(one/th)
+for baba in ll:
+	h = result.reshape(8, 1084, 4)  # 將結果重塑為 (1, 1084, 4) 的形狀
+	probabilities = h[baba]  # 取出第二到第四個類別的機率
+
+	print("=====",probabilities.shape,result.shape)
+
+	k = []
+	p = 0
+	evg = [0, 0, 0, 0]
+
+	# 計算前num_frame的平均
+	for i in range(500):
+		a = probabilities[i]
+		for j in range(4):
+			evg[j] += a[j]
+			
+	evg = [v / 500 for v in evg]
+
+	# 決策
+	for i in range(1084):
+		a = probabilities[i]
+		if a[1] > evg[1]:
+			print(0, end="")
+			k.append(0)
+			p += 1
+		elif a[2] > evg[2]:
+			print(1, end="")
+			k.append(1)
+			p += 1
+		elif a[3] > evg[3]:
+			print(2, end="")
+			k.append(2)
+			p += 1
+		else:	
+			print(3, end="")
+			k.append(3)
+			p += 1
+		if i % 16 == 15:
+			print(",")
+	print(k)
+
+	y_train = main('./v1/module_program/txt_zip')
+	y_train = y_train.reshape(y_train.shape[0],y_train.shape[1],y_train.shape[2])
+	y_train = y_train[:7,]
+
+	label = np.argmax(y_train[baba], axis=1)
+
+	# 去除等於3的
+	human_chart = label[label != 3]
+
+	human_chart.tolist()  # 將 NumPy 陣列轉換為列表
+
+	print(len(k))
+
+	k = k[:len(human_chart)]  # 確保 k 的長度與 human_chart 相同
 
 
+	# 你的 k 是AI生成的譜面
+	ai_chart = k  # 你的 AI output (0/1/2 list)
+	# 讓兩個長度一樣，避免IndexError
+	min_len = min(len(human_chart), len(ai_chart))
+	human_chart = human_chart[:min_len]
+	ai_chart = ai_chart[:min_len]
 
+	# 指標計算
+	np.random.seed(42)
+	random_chart = np.random.choice([0, 1, 2], size=len(ai_chart))
+	dcrand = direct_comparison(to_binary(ai_chart), to_binary(random_chart))
+	dchuman = direct_comparison(to_binary(ai_chart), to_binary(human_chart))
+	ochuman = onset_comparison(human_chart, ai_chart, tolerance=1)
+    
+	if ochuman > 0.96:
+		best = baba
+		best_ochuman = ochuman
+		best_dcrand = dcrand
+		best_dchuman = dchuman
 
-	# maxs=np.where(k==np.max(k))
-	# # print(type(maxs))
-	# a = maxs[0]
-	# a = a.tolist()
-	# if len(maxs[0])>1:
-	# 	if (a[len(maxs[0])-1]==3)&(len(maxs[0])>2):
-	# 		o = a[len(maxs[0])-2]
-	# 	else:
-	# 		o = a[len(maxs[0])-1]
-	# o = a[0]
-	# print(o,",",end = "")
+	all_dcrand = all_dcrand + dcrand
+	all_dchuman = all_dchuman + dchuman
+	all_ochuman = all_ochuman + ochuman
 
-	
-# 	t=t+1
+	print(f"DCRand  (與亂數一致率)      : {dcrand:.4f}")
+	print(f"DCHuman (與人類準確率)      : {dchuman:.4f}")
+	print(f"OCHuman (寬容onset準確率)   : {ochuman:.4f}")
+    
+
+evg_dcrand = all_dcrand / len(ll)
+evg_dchuman = all_dchuman / len(ll)
+evg_ochuman = all_ochuman / len(ll)
+print(f"平均 DCRand  (與亂數一致率)      : {evg_dcrand:.4f}")
+print(f"平均 DCHuman (與人類準確率)      : {evg_dchuman:.4f}")
+print(f"平均 OCHuman (寬容onset準確率)   : {evg_ochuman:.4f}")
+print(f"最佳 DCRand  (與亂數一致率)      : {best_dcrand:.4f}")
+print(f"最佳 DCHuman (與人類準確率)      : {best_dchuman:.4f}")
+print(f"最佳 OCHuman (寬容onset準確率)   : {best_ochuman:.4f}")
