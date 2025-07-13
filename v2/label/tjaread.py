@@ -101,5 +101,6 @@ if __name__ == "__main__":
         file_path = f"v2/data/level 6~7/song{n}"  # 這裡請換成你的.tja檔案路徑
         result = parse_tja_file(file_path)
         print(result)
-        
+        chart_flat = [int(c) for bar in result for c in bar]
+        print(chart_flat)
 

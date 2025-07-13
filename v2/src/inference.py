@@ -110,18 +110,39 @@ for i in range(probabilities.shape[1]):
     a = a.tolist()
     if a[1] > evg[1]:
         print(0,end="")
+        k.append(0)
         p=p+1
     elif a[2] > evg[2]:
         print(1,end="")
+        k.append(1)
         p=p+1
     elif a[3] > evg[3]:
         print(2,end="")
         p=p+1
+        k.append(2)
     else:
         break
     if ((i%16)==15):
 	    print(",")
-print(p)
+print(k)
+
+np.random.seed(42)
+
+arr = np.random.rand(len(k))
+
+res = np.full(arr.shape, 2)
+
+# 0~0.33
+res[arr < 0.33] = 0
+
+# 0.33~0.66
+res[(arr >= 0.33) & (arr < 0.66)] = 1
+
+res.tolist()
+
+print(res)
+
+print(np.mean(k == res))
 
 # print(k)
 # # print(predicted_labels)

@@ -13,12 +13,12 @@ from txt_main      import labal_array
 from orange import taiko
 
 
-X_train = main('./tensorflow/module/BIG_ZIP')
+X_train = main('./v1\module_program\BIG_ZIP')
 # X_train = np.array(X_train[1])
 X_train=X_train.reshape( X_train.shape[0], X_train.shape[1] ,X_train.shape[2] ,X_train.shape[3],3).astype("float32") #convlstm(,1,23,32,3)
 X_train = X_train.astype('float32')/255
 print(X_train.shape)
-y_train = main('./tensorflow/module/txt_zip')
+y_train = main('./v1/module_program/txt_zip')
 # y_train = np.array(y_train[1])
 print(y_train.shape)
 y_train = y_train.reshape(y_train.shape[0],y_train.shape[1],y_train.shape[2])
@@ -45,7 +45,7 @@ weight = list(weight)
 print(weight)
 
 
-model = load_model('TaikoCLSTM.h5')
+model = load_model('v1/TaikoCLSTM.h5')
 result = model.predict(X_train[0:])
 
 weight_array = np.array([1 , 10.6 , 13.432458 , 0.6])#4.56 [1 , 10.5333 , 13.432458 , 0.6
