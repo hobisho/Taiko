@@ -76,6 +76,7 @@ result = model.predict(X_train[0:])
 all_ochuman= 0
 all_dcrand = 0
 all_dchuman = 0
+best = []
 
 ll= [0, 1, 2, 3, 5, 6]  # 假設有7首歌
 
@@ -150,8 +151,8 @@ for baba in ll:
 	dchuman = direct_comparison(to_binary(ai_chart), to_binary(human_chart))
 	ochuman = onset_comparison(human_chart, ai_chart, tolerance=1)
     
-	if ochuman > 0.96:
-		best = baba
+	if dchuman > 0.50:
+		best.append(baba)
 		best_ochuman = ochuman
 		best_dcrand = dcrand
 		best_dchuman = dchuman
@@ -174,3 +175,4 @@ print(f"平均 OCHuman (寬容onset準確率)   : {evg_ochuman:.4f}")
 print(f"最佳 DCRand  (與亂數一致率)      : {best_dcrand:.4f}")
 print(f"最佳 DCHuman (與人類準確率)      : {best_dchuman:.4f}")
 print(f"最佳 OCHuman (寬容onset準確率)   : {best_ochuman:.4f}")
+print(f"最佳譜面: {best}")
