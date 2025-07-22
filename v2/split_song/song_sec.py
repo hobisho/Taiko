@@ -6,6 +6,7 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
     take_off = take_off/1000
     ideal_per_cut = 15/bpm
     cut_per = round(15000/bpm)/1000
+    print("====",cut_per)
 
     duration_cut = duration - take_off
     cut_sum = 0
@@ -40,5 +41,6 @@ if __name__ == "__main__":
     print(tja_data.Bpm(),  tja_data.Offset()*1000, tja_data.Piece())
     time = count_sec(bpm=tja_data.Bpm(),duration=len(audio),take_off= tja_data.Offset()*1000,piece = tja_data.Piece())#912
     print(len(time))
+    
 
 
