@@ -12,7 +12,7 @@ folder = "oni"
 def compression (song_number,label_list):
     image_filename_list = []
     for numbers in range(1,biggest_piece()):
-        image_filename_list.append(f"v2/data/zip_testing_data/song{song_number}/song{song_number}_{numbers}.jpg") 
+        image_filename_list.append(f"data/STFT_Image/song{song_number}/song{song_number}_{numbers}.jpg") 
     # print(dir(image_filename_list))
     tfrecords_filename = f'G:\\overlaping_tfrecords/song{song_number}.tfrecords'
     compression_listpath(image_filename_list, label_list,tfrecords_filename)
@@ -26,9 +26,9 @@ def labal_part(song_number)->list:
 
 
 def image_part(song_sumber)->np.array:
-    input_audio = f"v2/data/{folder}/song{song_sumber}"  # 你的音檔
-    song_output_folder = "v2/data/split_ogg"  # 儲存資料夾
-    jpg_output_folder = f"v2/data/zip_testing_data"
+    input_audio = f"v2/data/{folder}/song{song_sumber}" 
+    song_output_folder = "data/split_ogg"  
+    jpg_output_folder = f"data/STFT_Image"
     process_audio(input_audio, song_output_folder,jpg_output_folder)
 
 

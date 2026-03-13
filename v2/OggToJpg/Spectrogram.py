@@ -21,37 +21,84 @@ def audiosegment_to_numpy(audio_segment):
     return samples
 
 
-def audio_to_spectrogram(audio,name="A")->list:
-    
-    # 1. 讀取音訊並計算 Spectrogram
+import numpy as np
+import librosa
+import librosa.display
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+
+def audio_to_spectrogram(audio, name="A", sr=44100, n_fft=2048, hop_length=512, n_mels=128):
+    """
+    輸入 audio
+    1. 計算 STFT，並存成 STFT 圖片
+    2. 直接計算 Mel Spectrogram
+    3. 回傳 Mel Spectrogram (dB)
+
+    回傳:
+        mel_db: Mel spectrogram 的 dB 矩陣
+    """
+    # 1. audio -> numpy
     y = audiosegment_to_numpy(audio)
-    sr = 44100
 
-    # 2.傅立葉轉換
-    D = np.abs(librosa.stft(y))  # 計算短時傅立葉變換 (STFT)
-    log_S = librosa.amplitude_to_db(D, ref=np.max)  # 轉換為 dB Scale
+    # 2. STFT（用來存圖）
+    D = np.abs(librosa.stft(y, n_fft=n_fft, hop_length=hop_length))
+    log_S = librosa.amplitude_to_db(D, ref=np.max)
 
-    # 3. 建立 Matplotlib Figure
-    fig, ax = plt.subplots(figsize=(6, 4))  # 設定大小
-    librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='log', cmap='jet')
-    ax.axis('off')  # 隱藏軸線
-    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)  # 去除邊框
+    # 3. 存 STFT 圖
+    save_STFT_spectrogram(log_S, sr, name)
 
-    # 4. 轉換成 RGB 陣列
+    # 4. 直接做 Mel Spectrogram
+    mel_S = librosa.feature.melspectrogram(
+        y=y,
+        sr=sr,
+        n_fft=n_fft,
+        hop_length=hop_length,
+        n_mels=n_mels
+    )
+    mel_db = librosa.power_to_db(mel_S, ref=np.max)
+
+    save_mel_spectrogram(mel_db, sr, name)
+
+
+
+def save_STFT_spectrogram(log_S, sr, name):
+    fig, ax = plt.subplots(figsize=(6, 4))
+    librosa.display.specshow(
+        log_S,
+        sr=sr,
+        x_axis='time',
+        y_axis='log',
+        cmap='jet'
+    )
+    ax.axis('off')
+    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
+
     canvas = FigureCanvas(fig)
     canvas.draw()
 
-    # 5. 提取 NumPy 陣列
     width, height = fig.canvas.get_width_height()
-    np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
-    # image_array = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
+    image_array = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
 
-    plt.savefig(f'{name}.jpg', bbox_inches='tight', pad_inches=0,transparent=False)
-    # plt.show()
-    plt.close(fig)  # 關閉圖表，釋放記憶體
-    # image_rgb = image_array.convert("RGB")# 移除透明通道
-    return
-    # return image_array.tolist()
+    plt.savefig(f'{name}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
+    plt.close(fig)
+
+    return image_array
+
+def save_mel_spectrogram(mel_db, sr, name):
+    fig, ax = plt.subplots(figsize=(6, 4))
+    librosa.display.specshow(
+        mel_db,
+        sr=sr,
+        x_axis='time',
+        y_axis='mel',
+        cmap='jet'
+    )
+    ax.axis('off')
+    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
+    plt.savefig(f'{name}_mel.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
+    plt.close(fig)
+
 
 # 使用示例
 if __name__ == "__main__":
