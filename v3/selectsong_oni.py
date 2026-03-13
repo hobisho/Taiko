@@ -167,10 +167,10 @@ def copy_folder_if_level_in_range(root_folder, destination_folder):
 
 if __name__ == "__main__":
 
-    root_folder = "Taiko-switch"
+    root_folder = "/data/Taiko-switch"
     for subfolder in os.listdir(root_folder):
         root_folder_path = os.path.join(root_folder, subfolder)  # 請修改為你的資料夾路徑
         print(root_folder_path)
-        destination_folder_path = "v2/data/oni"  # 請修改為你的目標資料夾路徑
+        destination_folder_path = "data/oni"  # 請修改為你的目標資料夾路徑
         copy_folder_if_level_in_range(root_folder_path, destination_folder_path)
     rename_files_in_folders(destination_folder_path)

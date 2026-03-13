@@ -8,20 +8,21 @@ from split_song.song_sec import count_sec # type: ignore
 from OggToJpg.Spectrogram import audio_to_spectrogram # type: ignore
 
 
-def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
+def process_audio(input_audio, folder_path)->list:
     ogg_file_path = None
-    tja_data=TjaData(input_file)
+    tja_data=TjaData(input_audio)
     offset = tja_data.Offset() *1000
     
     # 確保輸出資料夾存在
-    for file in os.listdir(input_file):
+    for file in os.listdir(input_audio):
         if file.endswith(".ogg"):
             file_name = os.path.splitext(file)[0]
-            ogg_file_path = os.path.join(input_file, file)
+            ogg_file_path = os.path.join(input_audio, file)
             break
     
+    
     # print(f"============================================ spliting {file_name} ============================================\n")
-    os.makedirs(f"{song_output_folder}/{file_name}", exist_ok=True)
+    os.makedirs(f"{folder_path}/Split_ogg/{file_name}", exist_ok=True)
     
     # 載入音檔
     audio = AudioSegment.from_file(ogg_file_path)
@@ -30,27 +31,24 @@ def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
     start = offset
     time_per_footage = count_sec(tja_data.Bpm(),duration=len(audio),take_off=offset, piece=tja_data.Piece())
     # print(tja_data.Bpm(),len(audio),offset, tja_data.Piece())
-    
-    jpg_output_dir = f"{jpg_output_folder}/{file_name}"
-    os.makedirs(jpg_output_dir, exist_ok=True)
+
     overlapping_time = round(time_per_footage[0] * 0.075, 3) * 1000
     for i in tqdm(range(len(time_per_footage))): 
         end = start + time_per_footage[i]*1000  # 轉換為毫秒
         split_audio = audio[start - overlapping_time:end + overlapping_time]
         
         # 儲存片段
-        output_path = os.path.join(f"{song_output_folder}/{file_name}", f"{file_name}_{i+1}.ogg")
+        output_path = os.path.join(f"{folder_path}/Split_ogg/{file_name}", f"{file_name}_{i+1}.ogg")
         split_audio.export(output_path, format="ogg")
 
         start = end
-        audio_to_spectrogram(split_audio,f"{jpg_output_dir}/{file_name}_{i+1}")
+        audio_to_spectrogram(split_audio, [folder_path, file_name, i+1])
     print("split end")
     # return image
 
 # 測試用範例
 if __name__ == "__main__":
     input_audio = "v2/data/oni/song13"  # 你的音檔
-    song_output_folder = "v2/data/split_ogg"  # 儲存資料夾
-    jpg_output_folder = f"v2/data/zip_testing_data"
-    process_audio(input_audio, song_output_folder,jpg_output_folder)
+    folder_path = "data"
+    process_audio(input_audio, folder_path)
     

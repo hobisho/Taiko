@@ -27,17 +27,17 @@ def labal_part(song_number)->list:
 
 def image_part(song_sumber)->np.array:
     input_audio = f"v2/data/{folder}/song{song_sumber}" 
-    song_output_folder = "data/split_ogg"  
-    jpg_output_folder = f"data/STFT_Image"
-    process_audio(input_audio, song_output_folder,jpg_output_folder)
+    folder_path = "/data"
+    process_audio(input_audio, folder_path)
 
 
 if __name__ == "__main__":
-    for song_sumber in range(36,61):# len(os.listdir(f"v2/data/{folder}/"))+1
+    for song_sumber in range(1,31):# len(os.listdir(f"v2/data/{folder}/"))+1
         print("song_sumber:",song_sumber)
         image_part(song_sumber)
         label_list = labal_part(song_sumber)
         print(f"compression song{song_sumber}")
+        compression(song_sumber,label_list)
         compression(song_sumber,label_list)
 
     # song_sumber = 13

@@ -28,12 +28,13 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
-def audio_to_spectrogram(audio, name="A", sr=44100, n_fft=2048, hop_length=512, n_mels=128):
+def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=512, n_mels=128):
     """
     輸入 audio
     1. 計算 STFT，並存成 STFT 圖片
     2. 直接計算 Mel Spectrogram
     3. 回傳 Mel Spectrogram (dB)
+    folder_data = [folder_path, song_name, number(第幾張)]
 
     回傳:
         mel_db: Mel spectrogram 的 dB 矩陣
@@ -46,7 +47,7 @@ def audio_to_spectrogram(audio, name="A", sr=44100, n_fft=2048, hop_length=512, 
     log_S = librosa.amplitude_to_db(D, ref=np.max)
 
     # 3. 存 STFT 圖
-    save_STFT_spectrogram(log_S, sr, name)
+    save_STFT_spectrogram(log_S, sr, folder_data)
 
     # 4. 直接做 Mel Spectrogram
     mel_S = librosa.feature.melspectrogram(
@@ -58,11 +59,14 @@ def audio_to_spectrogram(audio, name="A", sr=44100, n_fft=2048, hop_length=512, 
     )
     mel_db = librosa.power_to_db(mel_S, ref=np.max)
 
-    save_mel_spectrogram(mel_db, sr, name)
+    save_mel_spectrogram(mel_db, sr, folder_data)
 
 
 
-def save_STFT_spectrogram(log_S, sr, name):
+def save_STFT_spectrogram(log_S, sr, folder_data):
+    STFT_output_dir = f"{folder_data[0]}/STFT_Image/{folder_data[1]}"
+    os.makedirs(STFT_output_dir, exist_ok=True)
+
     fig, ax = plt.subplots(figsize=(6, 4))
     librosa.display.specshow(
         log_S,
@@ -80,12 +84,15 @@ def save_STFT_spectrogram(log_S, sr, name):
     width, height = fig.canvas.get_width_height()
     image_array = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
 
-    plt.savefig(f'{name}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
+    plt.savefig(f'{STFT_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
     plt.close(fig)
 
     return image_array
 
-def save_mel_spectrogram(mel_db, sr, name):
+def save_mel_spectrogram(mel_db, sr, folder_data):
+    Mel_output_dir = f"{folder_data[0]}/Mel_Image/{folder_data[1]}"
+    os.makedirs(Mel_output_dir, exist_ok=True)
+
     fig, ax = plt.subplots(figsize=(6, 4))
     librosa.display.specshow(
         mel_db,
@@ -96,7 +103,7 @@ def save_mel_spectrogram(mel_db, sr, name):
     )
     ax.axis('off')
     plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
-    plt.savefig(f'{name}_mel.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
+    plt.savefig(f'{Mel_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
     plt.close(fig)
 
 
