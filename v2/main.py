@@ -14,7 +14,7 @@ def compression (song_number,label_list):
     for numbers in range(1,biggest_piece()):
         image_filename_list.append(f"v2/data/zip_testing_data/song{song_number}/song{song_number}_{numbers}.jpg") 
     # print(dir(image_filename_list))
-    tfrecords_filename = f'G:\\tfrecords/song{song_number}.tfrecords'
+    tfrecords_filename = f'G:\\overlaping_tfrecords/song{song_number}.tfrecords'
     compression_listpath(image_filename_list, label_list,tfrecords_filename)
 
 
@@ -33,14 +33,14 @@ def image_part(song_sumber)->np.array:
 
 
 if __name__ == "__main__":
-    for song_sumber in range(31,71):# len(os.listdir(f"v2/data/{folder}/"))+1
+    for song_sumber in range(36,61):# len(os.listdir(f"v2/data/{folder}/"))+1
         print("song_sumber:",song_sumber)
         image_part(song_sumber)
         label_list = labal_part(song_sumber)
         print(f"compression song{song_sumber}")
         compression(song_sumber,label_list)
 
-    # song_sumber = 31
-    # # image_part(song_sumber)
+    # song_sumber = 13
+    # image_part(song_sumber)
     # label_list = labal_part(song_sumber)
     # compression(song_sumber,label_list)

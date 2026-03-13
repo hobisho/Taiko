@@ -33,11 +33,12 @@ def process_audio(input_file, song_output_folder,jpg_output_folder)->list:
     
     jpg_output_dir = f"{jpg_output_folder}/{file_name}"
     os.makedirs(jpg_output_dir, exist_ok=True)
-    overlapping_time = round(time_per_footage[0] * 0.075, 3)
-    for i in tqdm(range(len(time_per_footage))):
+    overlapping_time = round(time_per_footage[0] * 0.075, 3) * 1000
+    for i in tqdm(range(len(time_per_footage))): 
         end = start + time_per_footage[i]*1000  # 轉換為毫秒
-        # print(end,start)
-        split_audio = audio[start - overlapping_time:end + overlapping_time]
+        # print(start , end , overlapping_time)
+        # split_audio = audio[start - overlapping_time:end + overlapping_time]
+        split_audio = audio[start:end]
         # print(end)
         
         # 儲存片段

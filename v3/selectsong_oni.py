@@ -49,7 +49,7 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
                 #small than footstep
                 if(len(extracted_numbers[0])<footstep):
                     if ((len(extracted_numbers[0])%32)==0):
-                        print("32 can't expend to 48")
+                        # print("32 can't expend to 48")
                         return None
                     multiply = int(footstep/len(extracted_numbers[0]))
                     for d in extracted_numbers[0]:
@@ -65,9 +65,9 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
 
                 #greater than footstep
                 else:
-                    print("greater than footstep")
+                    # print("greater than footstep")
                     if (len(extracted_numbers[0])%footstep!=0):
-                        print(f"{len(extracted_numbers[0])} can't be {footstep}")
+                        # print(f"{len(extracted_numbers[0])} can't be {footstep}")
                         return None
                     divide = int(len(extracted_numbers[0])/footstep)
                     for k in range(0,len(extracted_numbers[0]),divide):
@@ -85,7 +85,7 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
 
             #if it can't be devide by 4
             else:
-                print(f"song can't be {footstep}")
+                # print(f"song can't be {footstep}")
                 return None
                 
             numbers.extend(word_list)
@@ -154,21 +154,23 @@ def extract_level_value(folder_path):
 def copy_folder_if_level_in_range(root_folder, destination_folder):
     # 確保目標資料夾存在
     os.makedirs(destination_folder, exist_ok=True)
-    
     # 遍歷主資料夾內的所有子資料夾
     for subfolder in os.listdir(root_folder):
         subfolder_path = os.path.join(root_folder, subfolder)
         if os.path.isdir(subfolder_path):
             level_value = extract_level_value(subfolder_path)
-            if level_value is not None and 5 <= level_value <= 9:
+            if not(level_value is not None and 5 <= level_value <= 9):
+                l = l+1
                 dest_path = os.path.join(destination_folder, subfolder)
                 shutil.copytree(subfolder_path, dest_path, dirs_exist_ok=True)
                 print(f"已複製 {subfolder} 到 {dest_path}")
 
 if __name__ == "__main__":
+
     root_folder = "Taiko-switch"
     for subfolder in os.listdir(root_folder):
         root_folder_path = os.path.join(root_folder, subfolder)  # 請修改為你的資料夾路徑
+        print(root_folder_path)
         destination_folder_path = "v2/data/oni"  # 請修改為你的目標資料夾路徑
         copy_folder_if_level_in_range(root_folder_path, destination_folder_path)
     rename_files_in_folders(destination_folder_path)
