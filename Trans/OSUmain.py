@@ -1,26 +1,24 @@
 import numpy as np
-import os
-import sys
 from compression.compression_filepath_labellist import compression_listpath
 from label.tjaread import parse_tja_file #type:ignore
 from split_song.splitv2 import process_audio
-from compression.filling import filling_label
+from compression.filling import filling_label,biggest_piece
 from label.bk import break_str
 from split_song.trans import main
 
 
 def compression (song_sumber,label_list):
     image_filename_list = []
-    for numbers in range(1,1504):
+    for numbers in range(1,biggest_piece()):
         image_filename_list.append(f"Trans/data/zip_testing_data/song{song_sumber}/song{song_sumber}_{numbers}.jpg") 
         # print(numbers)
     # print(image_filename_list)
-    tfrecords_filename = f'E:\\tfrecords/osusong{song_sumber}.tfrecords'
+    tfrecords_filename = f'E:\\OUS_tfrecords/osusong{song_sumber}.tfrecords'
     compression_listpath(image_filename_list, label_list,tfrecords_filename)
 
 
 def labal_part(song_number)->list:
-    label_list = parse_tja_file(f"v2/data/level 6~7/song{song_number}")
+    label_list = parse_tja_file(f"data/level 6~7/song{song_number}")
     label_list = break_str(label_list)
     filling_label_list = filling_label(label_list)
     return filling_label_list
@@ -36,7 +34,7 @@ def image_part(song_sumber)->np.array:
 if __name__ == "__main__":
     for song_sumber in range(1,11):
         # image_part(song_sumber)
-    # song_sumber = 3
+        # song_sumber = 3
         bpm,tick,offset,piece,label_list = main(f"eval/song{song_sumber}/song{song_sumber}.osu")
         label_list = filling_label(label_list)
         compression(song_sumber,label_list)

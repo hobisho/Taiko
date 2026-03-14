@@ -1,4 +1,5 @@
 import os
+import cv2
 import librosa
 import librosa.display
 import numpy as np
@@ -41,7 +42,7 @@ def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=51
     log_S = librosa.amplitude_to_db(D, ref=np.max)
 
     # 3. 存 STFT 圖
-    save_STFT_spectrogram(log_S, sr, folder_data)
+    save_STFT_fast(log_S, sr, folder_data)
 
     # 4. 直接做 Mel Spectrogram
     mel_S = librosa.feature.melspectrogram(
@@ -53,7 +54,39 @@ def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=51
     )
     mel_db = librosa.power_to_db(mel_S, ref=np.max)
 
-    save_Mel_spectrogram(mel_db, sr, folder_data)
+    save_Mel_fast(mel_db, sr, folder_data)
+
+
+def save_Mel_fast(mel_db, sr, folder_data):
+    Mel_output_dir = f"{folder_data[0]}/Mel_Image/{folder_data[1]}"
+    os.makedirs(Mel_output_dir, exist_ok=True)
+
+    mel_norm = mel_db - mel_db.min()
+    if mel_norm.max() > 0:
+        mel_norm = mel_norm / mel_norm.max()
+    mel_img = (mel_norm * 255).astype(np.uint8)
+
+    mel_img = cv2.applyColorMap(mel_img, cv2.COLORMAP_JET)
+    mel_img = cv2.resize(mel_img, (5, 400), interpolation=cv2.INTER_AREA)
+
+    save_path = f'{Mel_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg'
+    cv2.imwrite(save_path, mel_img)
+
+
+def save_STFT_fast(STFT_db, sr, folder_data):
+    STFT_output_dir = f"{folder_data[0]}/STFT_Image/{folder_data[1]}"
+    os.makedirs(STFT_output_dir, exist_ok=True)
+
+    STFT_norm = STFT_db - STFT_db.min()
+    if STFT_norm.max() > 0:
+        STFT_norm = STFT_norm / STFT_norm.max()
+    STFT_img = (STFT_norm * 255).astype(np.uint8)
+
+    STFT_img = cv2.applyColorMap(STFT_img, cv2.COLORMAP_JET)
+    STFT_img = cv2.resize(STFT_img, (5, 400), interpolation=cv2.INTER_AREA)
+
+    save_path = f'{STFT_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg'
+    cv2.imwrite(save_path, STFT_img)
 
 
 
@@ -61,7 +94,7 @@ def save_STFT_spectrogram(log_S, sr, folder_data):
     STFT_output_dir = f"{folder_data[0]}/STFT_Image/{folder_data[1]}"
     os.makedirs(STFT_output_dir, exist_ok=True)
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(5, 400), dpi=1)
     librosa.display.specshow(
         log_S,
         sr=sr,
@@ -75,13 +108,13 @@ def save_STFT_spectrogram(log_S, sr, folder_data):
     canvas = FigureCanvas(fig)
     canvas.draw()
 
-    width, height = fig.canvas.get_width_height()
-    image_array = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
+    # width, height = fig.canvas.get_width_height()
+    # image_array = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
 
     plt.savefig(f'{STFT_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
     plt.close(fig)
 
-    return image_array
+    # return image_array
 
 
 
@@ -89,7 +122,7 @@ def save_Mel_spectrogram(mel_db, sr, folder_data):
     Mel_output_dir = f"{folder_data[0]}/Mel_Image/{folder_data[1]}"
     os.makedirs(Mel_output_dir, exist_ok=True)
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(5, 400), dpi=1)
     librosa.display.specshow(
         mel_db,
         sr=sr,
