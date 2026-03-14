@@ -1,9 +1,7 @@
 import os
 import cv2
 import librosa
-import librosa.display
 import numpy as np
-import matplotlib.pyplot as plt
 from pydub import AudioSegment
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
@@ -89,74 +87,8 @@ def save_STFT_fast(STFT_db, sr, folder_data):
     cv2.imwrite(save_path, STFT_img)
 
 
-
-def save_STFT_spectrogram(log_S, sr, folder_data):
-    STFT_output_dir = f"{folder_data[0]}/STFT_Image/{folder_data[1]}"
-    os.makedirs(STFT_output_dir, exist_ok=True)
-
-    fig, ax = plt.subplots(figsize=(5, 400), dpi=1)
-    librosa.display.specshow(
-        log_S,
-        sr=sr,
-        x_axis='time',
-        y_axis='log',
-        cmap='jet'
-    )
-    ax.axis('off')
-    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
-
-    canvas = FigureCanvas(fig)
-    canvas.draw()
-
-    # width, height = fig.canvas.get_width_height()
-    # image_array = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8).reshape(height, width, 3)
-
-    plt.savefig(f'{STFT_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
-    plt.close(fig)
-
-    # return image_array
-
-
-
-def save_Mel_spectrogram(mel_db, sr, folder_data):
-    Mel_output_dir = f"{folder_data[0]}/Mel_Image/{folder_data[1]}"
-    os.makedirs(Mel_output_dir, exist_ok=True)
-
-    fig, ax = plt.subplots(figsize=(5, 400), dpi=1)
-    librosa.display.specshow(
-        mel_db,
-        sr=sr,
-        x_axis='time',
-        y_axis='mel',
-        cmap='jet'
-    )
-    ax.axis('off')
-    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
-    plt.savefig(f'{Mel_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
-    plt.close(fig)
-
-
-
 # 使用示例
 if __name__ == "__main__":
-    # # read entire folder
-    # song_name = "song1"
-    # folder_path = f"v2/data/split_ogg/{song_name}"
-    # output_dir = f"v2/data/zip_testing_data/{song_name}"
-    # os.makedirs(output_dir, exist_ok=True)
-    # for filename in os.listdir(folder_path):
-    #     file_path = os.path.join(folder_path, filename)
-        
-    #     # 讀取音檔
-    #     audio = AudioSegment.from_file(file_path)
-        
-    #     # 移除副檔名，作為 spectrogram 的名稱
-    #     name = os.path.splitext(filename)[0]
-        
-    #     # 轉換成 Spectrogram
-    #     audio_to_spectrogram(audio, output_dir+"/"+name)  # 假設這個函式已經定義
-
-    # read one file
     audio = AudioSegment.from_file("data/oni/song13/song13.ogg")
     a= audio_to_spectrogram(audio,"Spectrogram_test_jpg")
     print(type(a))#[255 0 0 128]
