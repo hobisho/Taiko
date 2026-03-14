@@ -1,12 +1,12 @@
 /v2/Lib/site-packages
 /Taiko-switch
 /v1/song_to_wav/training filder
-/Trans/data/zip_testing_data
-/Trans/data/split_ogg
+/Trans/data
 /taiko_simulation
 /data/oni
 /data/split_ogg
 /data/STFT_Image
 /data/Taiko-switch
 /data/Mel_Image
+/paper/picture
 /~
