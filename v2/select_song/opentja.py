@@ -43,6 +43,6 @@ def copy_folder_if_level_in_range(root_folder, destination_folder):
                 print(f"已複製 {subfolder} 到 {dest_path}")
 
 if __name__ == "__main__":
-    root_folder_path = "Taiko-switch/7. Namco Original"  # 請修改為你的資料夾路徑
-    destination_folder_path = "Taiko-switch/level 6~7"  # 請修改為你的目標資料夾路徑
+    root_folder_path = "/data/Taiko-switch/7. Namco Original"  # 請修改為你的資料夾路徑
+    destination_folder_path = "/dataTaiko-switch/level 6~7"  # 請修改為你的目標資料夾路徑
     copy_folder_if_level_in_range(root_folder_path, destination_folder_path)

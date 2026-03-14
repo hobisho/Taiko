@@ -55,6 +55,7 @@ class TjaData():
         start = False
         song_start = False
         oni = False
+        lines_buffer = []
         # empty=0
         times = 1
         a = self.ReadTja()
@@ -68,24 +69,11 @@ class TjaData():
                 continue
             
             if (line.upper() == "#END") & start:
-                # print("end")
+                i = len(lines_buffer) - 1
+                while i >= 0 and ((lines_buffer[i] == ",")|(lines_buffer[i] == "0,")):
+                    times -= 1
+                    i -= 1
                 break
-
-            ##原本的
-        #     if (start&(re.search(r',', line)!= None)):
-        #         if (song_start == False):
-        #             if (re.findall(r'(\d+),', line)!= []):
-        #                 song_start = True
-        #         elif (song_start == True):
-        #             if (re.findall(r'(\d+),', line)!= []) & (re.search(r'COURSE:Oni', content)):
-        #                 times = times+1
-                    
-        #             if (re.findall(r'(\d+),', line)== []):
-        #                 empty = empty+1
-        #             else:
-        #                 times = times+1
-        #                 empty=0
-        # return int((times-empty)*16)
     
             if (start&(re.search(r',', line)!= None)):
                 if (song_start == False):
@@ -94,10 +82,13 @@ class TjaData():
                 elif (song_start == True):
                     if ("," in line):
                         times = times+1
+
+            if start:
+                lines_buffer.append(line)
         return int(times*48)
 
 
 if __name__ == "__main__":
-    tja_data=TjaData("v2/data/oni/song13")
+    tja_data=TjaData("data/oni/song28")
     print(tja_data.Piece())
     # print(tja_data.ReadTja())

@@ -29,12 +29,14 @@ def process_audio(input_audio, folder_path)->list:
     # 去除 offset
     # trimmed_audio = audio[offset:]
     start = offset
+    # print(start)
     time_per_footage = count_sec(tja_data.Bpm(),duration=len(audio),take_off=offset, piece=tja_data.Piece())
     # print(tja_data.Bpm(),len(audio),offset, tja_data.Piece())
 
-    overlapping_time = round(time_per_footage[0] * 0.075, 3) * 1000
+    overlapping_time = round(time_per_footage[0] * 0.075, 3) #15%的overlaping
     for i in tqdm(range(len(time_per_footage))): 
-        end = start + time_per_footage[i]*1000  # 轉換為毫秒
+        end = start + time_per_footage[i] 
+        # print(f"start: {start}, end: {end}, overlapping_time: {overlapping_time}, audio_length: {len(audio)}")
         split_audio = audio[start - overlapping_time:end + overlapping_time]
         
         # 儲存片段
@@ -48,7 +50,7 @@ def process_audio(input_audio, folder_path)->list:
 
 # 測試用範例
 if __name__ == "__main__":
-    input_audio = "v2/data/oni/song13"  # 你的音檔
+    input_audio = "data/oni/song28"  # 你的音檔
     folder_path = "data"
     process_audio(input_audio, folder_path)
     

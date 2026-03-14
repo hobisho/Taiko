@@ -7,8 +7,8 @@ import os
 def biggest_piece():
     a=[]
     biggest=0
-    for i in range(0, len(os.listdir(f"v2/data/oni/"))):
-        path_name = f'v2/data/oni/song{i+1}'
+    for i in range(0, len(os.listdir(f"data/oni/"))):
+        path_name = f'data/oni/song{i+1}'
         a=TjaData(path_name)
         if (max (biggest,a.Piece())!=biggest):
             biggest = a.Piece()

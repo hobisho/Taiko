@@ -21,5 +21,5 @@ def rename_files_in_folders(parent_folder):
 
 
 if __name__ == "__main__":
-    target_directory = "v2/data/oni"  # 請更換為實際的目標資料夾路徑
+    target_directory = "data/oni"  # 請更換為實際的目標資料夾路徑
     rename_files_in_folders(target_directory)

@@ -1,30 +1,31 @@
 from split_song.readdata import TjaData 
 from pydub import AudioSegment
 
-def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
+def count_sec(bpm=188,duration=60,take_off=0,piece=1808):# 單位ms
     duration = duration
-    take_off = take_off
-    ideal_per_cut = 60/bpm*4/48
-    cut_per = round(ideal_per_cut,3)
+    take_off = round(take_off,0)
+    ideal_per_cut = 60/bpm*4/48 * 1000
+    cut_per = round(ideal_per_cut,1)
+
+    # print(f"cut_per: {ideal_per_cut}, duration: {duration}, take_off: {take_off}, piece: {piece}")
 
     duration_cut = duration - take_off
     cut_sum = 0
     n = 1
-    r = 0.001
+    error = 0.2
     time = []
     while(n<=piece):
         cut = cut_per
 
-        if((cut_sum - n*ideal_per_cut) > r):
-            cut -= r
-        if ((cut_sum - n*ideal_per_cut) < -r):
-            cut += r
+        if((cut_sum - n*ideal_per_cut) > error):
+            cut -= error
+        if ((cut_sum - n*ideal_per_cut) < -error):
+            cut += error
         if ((duration_cut-cut_sum)<cut):
             cut= duration_cut-cut_sum
-            if (cut > 0.1):
-                time.append(cut)
-            print("error:song not enough")
-            return -1
+            if ((piece-n)>48):
+                print("error:song not enough")
+                return -1
 
         cut_sum += cut
         n += 1
@@ -34,13 +35,23 @@ def count_sec(bpm=188,duration=60,take_off=0,piece=1808):
         # print(cut, " ",cut_sum," ", n * ideal_per_cut)
     
 if __name__ == "__main__":
-    i = 13
-    audio = AudioSegment.from_file(f"v2/data/oni/song{i}/song{i}.ogg")
-    # print(len(audio))
-    tja_data=TjaData(f"v2/data/oni/song{i}")
+    # for i in range(1,109):
+        
+    #     audio = AudioSegment.from_file(f"data/oni/song{i}/song{i}.ogg")
+    #     # print(len(audio))
+    #     tja_data=TjaData(f"data/oni/song{i}")
+    #     # print(tja_data.Bpm(),  tja_data.Offset()*1000, tja_data.Piece())
+    #     time = count_sec(bpm=tja_data.Bpm(),duration=len(audio),take_off= tja_data.Offset()*1000,piece = tja_data.Piece())
+    #     if time == -1:
+    #         print(f"song{i} not enough")
+
+    i = 28
+    audio = AudioSegment.from_file(f"data/oni/song{i}/song{i}.ogg")
+    print(len(audio))
+    tja_data=TjaData(f"data/oni/song{i}")
     print(tja_data.Bpm(),  tja_data.Offset()*1000, tja_data.Piece())
     time = count_sec(bpm=tja_data.Bpm(),duration=len(audio),take_off= tja_data.Offset()*1000,piece = tja_data.Piece())#912
-    print(time[0],round(time[0]*0.075,3))
+    print(len(time))
         
 
 

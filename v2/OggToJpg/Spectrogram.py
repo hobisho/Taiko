@@ -21,12 +21,6 @@ def audiosegment_to_numpy(audio_segment):
     return samples
 
 
-import numpy as np
-import librosa
-import librosa.display
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-
 
 def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=512, n_mels=128):
     """
@@ -59,7 +53,7 @@ def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=51
     )
     mel_db = librosa.power_to_db(mel_S, ref=np.max)
 
-    save_mel_spectrogram(mel_db, sr, folder_data)
+    save_Mel_spectrogram(mel_db, sr, folder_data)
 
 
 
@@ -89,7 +83,9 @@ def save_STFT_spectrogram(log_S, sr, folder_data):
 
     return image_array
 
-def save_mel_spectrogram(mel_db, sr, folder_data):
+
+
+def save_Mel_spectrogram(mel_db, sr, folder_data):
     Mel_output_dir = f"{folder_data[0]}/Mel_Image/{folder_data[1]}"
     os.makedirs(Mel_output_dir, exist_ok=True)
 
@@ -105,6 +101,7 @@ def save_mel_spectrogram(mel_db, sr, folder_data):
     plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
     plt.savefig(f'{Mel_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg', bbox_inches='tight', pad_inches=0, transparent=False)
     plt.close(fig)
+
 
 
 # 使用示例
@@ -127,7 +124,7 @@ if __name__ == "__main__":
     #     audio_to_spectrogram(audio, output_dir+"/"+name)  # 假設這個函式已經定義
 
     # read one file
-    audio = AudioSegment.from_file("v2/data/oni/song13/song13.ogg")
+    audio = AudioSegment.from_file("data/oni/song13/song13.ogg")
     a= audio_to_spectrogram(audio,"Spectrogram_test_jpg")
     print(type(a))#[255 0 0 128]
     

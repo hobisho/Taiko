@@ -1,10 +1,6 @@
 # Taiko
       Taiko for Luoluo and BU
 
-# ToDoList
-      Overlay
-
-
 # Song 
       1 ESE:
             https://ese.tjadataba.se/ESE/ESE
@@ -243,11 +239,15 @@
                   extract_level_value(folder_path):out put array which write in tja file
                         ->[LEVEL,BPM,OFFSET,piece] (piece要切的張數)
 
-            2 song_sec:
+            2 song_sec:(old version for v2, which cut/section = 16)
                   calculate time for each piece
                         ->list[time of per piece]
 
-            3 splitv2:
+            3 song_sec_v3:
+                  calculate time for each piece
+                        ->list[time of per piece]
+
+            4 splitv2:
                   cut song to many piece and use OggToJpg/Spectrogram to let every piece of song(.ogg) turn to jpg
                         ->v2/data/split_ogg
                         ->v2/data/zip_testing_data (use OggToJpg/Spectrogram to make)
@@ -337,7 +337,43 @@
                   when no song need to fill with this and zip the tfrecords file
                   # if you have read the whole readme say TAT to me   by:2025/03/09 BU
 
+# v3
+      #every thing in test is no need when runing the entire program,so they won't be explen.
 
+      1 selectsong_oni:
+            only select song is oni and level between 5~9. It will also skip bpm_change (82 songs),measure_change (48 songs), tja can't magnify to 48 (173 songs)(here also include level out of 5~9), and output error (11 songs)
+
+# data
+      1 eval:
+            DDC eval data which have been transfer to taiko form
+
+      2 Mel_Image:
+            Mel Spectrogram image
+
+      3 STFT_Image:
+            STFT Spectrogram image
+
+      4 oni:
+            Taiko data which don't have bpm_change,measure_change and can be magnify to 48. And level is between 5~9
+
+      5 G:\Mel_tfrecords:(training data)
+            Use Mel_Image to compress to tfrecords file for model training
+
+      6 G:\STFT_tfrecords:(training data)
+            Use STFT_Image to compress to tfrecords file for model training
+
+      7 G:\STFT_tfrecords:(training data) ###(don't use)
+            Use STFT_Image (without overlapping) to compress to tfrecords file for model training
+
+# Change
+      CUT/Section = 48:
+            /label/bk
+            /label/tjaread_v3
+            /spilt_song/song_sec
+
+      input folder:
+            /v2/main
+            /compression/filling
 
 # quote
       1 re

@@ -8,7 +8,7 @@ def open_txt(folder_path):
 
 
 if __name__ == "__main__":
-    folder_path = "./Taiko-switch/"
+    folder_path = "./data/Taiko-switch/"
     if os.path.exists(folder_path):
         open_txt(folder_path)
         print(f"\n所有壓縮檔已解壓縮完成！解壓縮內容存放於: {os.path.join(folder_path, 'extracted_files')}")

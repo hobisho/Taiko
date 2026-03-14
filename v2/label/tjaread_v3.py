@@ -63,7 +63,7 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
                 #greater than footstep
                 else:
                     if (len(extracted_numbers[0])%footstep!=0):
-                        print(f"{len(extracted_numbers[0])} can't be {footstep}")
+                        # print(f"{len(extracted_numbers[0])} can't be {footstep}")
                         return None
                     divide = int(len(extracted_numbers[0])/footstep)
                     for k in range(0,len(extracted_numbers[0]),divide):
@@ -88,12 +88,12 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
     #刪除前後的0
     pop = 0
     for i in range(len(numbers),0,-1):
-        if (numbers[i-1]=="0000000000000000"):
+        if (numbers[i-1]=="000000000000000000000000000000000000000000000000"):
             numbers.pop(i-1)
         else:
             break
     for i in range(len(numbers)):
-        if (numbers[i]=="0000000000000000"):
+        if (numbers[i]=="000000000000000000000000000000000000000000000000"):
             pop = pop+1
         else:
             break
@@ -105,7 +105,7 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
 if __name__ == "__main__":
     for n in range(1, 2):
         n = 31
-        file_path = f"v2/data/oni/song{n}"  # 這裡請換成你的.tja檔案路徑
+        file_path = f"data/oni/song{n}"  # 這裡請換成你的.tja檔案路徑
         result = parse_tja_file(file_path)
         print(result)
         chart_flat = [int(c) for bar in result for c in bar]
