@@ -33,14 +33,7 @@ def image_part(song_sumber)->np.array:
 
 
 if __name__ == "__main__":
-    for song_sumber in range(46,71):# len(os.listdir(f"data/{folder}/"))+1
-        print("song_sumber:",song_sumber)
-        # image_part(song_sumber)
-        label_list = labal_part(song_sumber)
-        compression(song_sumber,label_list,"STFT")
-        compression(song_sumber,label_list,"Mel")
-
-    for song_sumber in range(71,len(os.listdir(f"data/{folder}/"))+1):# len(os.listdir(f"data/{folder}/"))+1
+    for song_sumber in range(41,len(os.listdir(f"data/{folder}/"))+1):# len(os.listdir(f"data/{folder}/"))+1
         print("song_sumber:",song_sumber)
         image_part(song_sumber)
         label_list = labal_part(song_sumber)

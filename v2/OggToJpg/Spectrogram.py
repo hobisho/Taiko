@@ -65,7 +65,7 @@ def save_Mel_fast(mel_db, sr, folder_data):
     mel_img = (mel_norm * 255).astype(np.uint8)
 
     mel_img = cv2.applyColorMap(mel_img, cv2.COLORMAP_JET)
-    mel_img = cv2.resize(mel_img, (5, 400), interpolation=cv2.INTER_AREA)
+    mel_img = cv2.resize(mel_img, (60, 400), interpolation=cv2.INTER_AREA)
 
     save_path = f'{Mel_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg'
     cv2.imwrite(save_path, mel_img)
@@ -81,7 +81,7 @@ def save_STFT_fast(STFT_db, sr, folder_data):
     STFT_img = (STFT_norm * 255).astype(np.uint8)
 
     STFT_img = cv2.applyColorMap(STFT_img, cv2.COLORMAP_JET)
-    STFT_img = cv2.resize(STFT_img, (5, 400), interpolation=cv2.INTER_AREA)
+    STFT_img = cv2.resize(STFT_img, (60, 400), interpolation=cv2.INTER_AREA)
 
     save_path = f'{STFT_output_dir}/{folder_data[1]}_{folder_data[2]}.jpg'
     cv2.imwrite(save_path, STFT_img)

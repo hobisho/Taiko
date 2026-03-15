@@ -22,7 +22,7 @@ def create_blue_image(width, height, filename="v2/data/nosong.jpg"):
 
 
 if __name__ == "__main__":
-    width = 5
+    width = 60
     height = 400
     create_black_image(width, height)
     create_blue_image(width, height)
