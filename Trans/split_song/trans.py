@@ -87,5 +87,5 @@ def main(filepath):
 
 
 if __name__ == '__main__':
-    filepath = 'eval/song1/song1.osu'  # 改成你的檔名
+    filepath = 'data/eval/song1/song1.osu'  # 改成你的檔名
     main(filepath)

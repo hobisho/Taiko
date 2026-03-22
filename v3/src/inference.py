@@ -6,7 +6,7 @@ from module.decompression import decompression
 from train import CNNFeatureExtractor, CNNTransformerModel
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../label')) # 假設結構是 v2/src, v2/label
-from tjaread import parse_tja_file
+from label.tjaread_v3 import parse_tja_file #type:ignore
 song_code = '5'  # 根據你的實際情況修改
 
 
@@ -50,7 +50,7 @@ def onset_comparison(human, ai, tolerance=1):
 base_dir = os.path.dirname(os.path.abspath(__file__))
 # 設定目標資料夾路徑：當前檔案所在目錄下的 "src/models"
 models_dir = os.path.join(base_dir, "models")
-checkpoint_path = os.path.join(models_dir, "checkpoint_best_0319.pth")
+checkpoint_path = os.path.join(models_dir, "20260318/checkpoint_best.pth")
 if not os.path.exists(checkpoint_path):
     raise FileNotFoundError(f"Checkpoint not found at {checkpoint_path}")
 
@@ -64,6 +64,8 @@ num_layers = checkpoint["num_layers"]
 seq_length = checkpoint["seq_length"]
 target_H = checkpoint["target_H"]
 target_W = checkpoint["target_W"]
+print("target_H:", target_H)
+print("target_W:", target_W)
 num_classes = checkpoint["num_classes"]
 
 # 建立模型並載入權重
@@ -83,14 +85,16 @@ print("模型載入完成。")
 # 2. 從 tfrecords 讀取資料並前處理
 # -------------------------------
 # 使用 inferance.py 中的 decompression 讀取 tfrecords 資料
-iii = 27
-tfrecords_filename = f'E://tfrecords/song{iii}.tfrecords'
+iii = 41
+tfrecords_filename = f"G://Mel_tfrecords/song{iii}.tfrecords"
 image_list, label_list = decompression(tfrecords_filename)
 image_array = np.array(image_list)
 print("原始圖片 shape:", image_array.shape)
 
 # 若原始圖片尺寸非 train 中設定的 target_H 與 target_W，則需縮放
 if image_array.shape[1] != target_H or image_array.shape[2] != target_W:
+    #show image
+    cv2.imshow("Original Image", image_array[0])  # 顯示第一張圖片
     image_array = resize_images(image_array, new_width=target_W, new_height=target_H)
     print("縮放後圖片 shape:", image_array.shape)
 
@@ -145,11 +149,7 @@ for j in range(4):
 for i in range(probabilities.shape[1]):
     a = probabilities[0, i]
     a = a.tolist()
-    if a[1] > evg[1]:
-        print(0,end="")
-        k.append(0)
-        p=p+1
-    elif a[2] > evg[2]:
+    if a[2] > evg[2]:
         print(1,end="")
         k.append(1)
         p=p+1
@@ -158,53 +158,56 @@ for i in range(probabilities.shape[1]):
         p=p+1
         k.append(2)
     else:
-        break
-    if ((i%16)==15):
+        print(0,end="")
+        k.append(0)
+        p=p+1
+    if ((i%48)==47):
         print(",")
+k.append(0)
+print(k)
 
 
 
-# # 設定tja檔資料夾路徑
-# tja_folder = os.path.join(base_dir, f'../data/level 6~7/song{iii}') # 根據你真實的資料夾改
-# # 取得原始譜面: 每小節16個字，list of str
-# bars = parse_tja_file(tja_folder)
-# # print("原始譜面 (每小節16個字):")
-# # for a in range(len(bars)):
-# #     print(bars[a], end=",\n")
+# 設定tja檔資料夾路徑
+bars = parse_tja_file(f"./data/oni/song1")
+# print("原始譜面 (每小節16個字):")
+# for a in range(len(bars)):
+#     print(bars[a], end=",\n")
 
-# # 展平成一維list（0/1/2）
-# human_chart = [int(c) for bar in bars for c in bar]
+# 展平成一維list（0/1/2）
+human_chart = [int(c) for bar in bars for c in bar]
 
-# # 你的 k 是AI生成的譜面
-# ai_chart = k  # 你的 AI output (0/1/2 list)
-# # 讓兩個長度一樣，避免IndexError
-# min_len = min(len(human_chart), len(ai_chart))
-# human_chart = human_chart[:min_len]
-# ai_chart = ai_chart[:min_len]
+# 你的 k 是AI生成的譜面
+ai_chart = k  # 你的 AI output (0/1/2 list)
+# 讓兩個長度一樣，避免IndexError
+min_len = min(len(human_chart), len(ai_chart))
+human_chart = human_chart[:min_len]
+ai_chart = ai_chart[:min_len]
 
-# # 指標計算
-# np.random.seed(5)
-# random_chart = np.random.choice([0, 1, 2], size=len(ai_chart))
-# dcrand = direct_comparison(to_binary(ai_chart), to_binary(random_chart))
-# dchuman = direct_comparison(to_binary(ai_chart), to_binary(human_chart))
-# ochuman = onset_comparison(human_chart, ai_chart, tolerance=1)
-# # if ochuman < 0.85:
+# 指標計算
+np.random.seed(5)
+random_chart = np.random.choice([0, 1, 2], size=len(ai_chart))
+dcrand = direct_comparison(to_binary(ai_chart), to_binary(random_chart))
+dchuman = direct_comparison(to_binary(ai_chart), to_binary(human_chart))
+ochuman = onset_comparison(human_chart, ai_chart, tolerance=1)
+
+# if ochuman < 0.85:
 #     error.append(iii)
 #     continue
 
-# if ochuman > 0.97:
-#     best = iii
-#     best_ochuman = ochuman
-#     best_dcrand = dcrand
-#     best_dchuman = dchuman
+if ochuman > 0.97:
+    best = iii
+    best_ochuman = ochuman
+    best_dcrand = dcrand
+    best_dchuman = dchuman
 
 # all_dcrand = all_dcrand + dcrand
 # all_dchuman = all_dchuman + dchuman
 # all_ochuman = all_ochuman + ochuman
 
-# print(f"DCRand  (與亂數一致率)      : {dcrand:.4f}")
-# print(f"DCHuman (與人類準確率)      : {dchuman:.4f}")
-# print(f"OCHuman (寬容onset準確率)   : {ochuman:.4f}")
+print(f"DCRand  (與亂數一致率)      : {dcrand:.4f}")
+print(f"DCHuman (與人類準確率)      : {dchuman:.4f}")
+print(f"OCHuman (寬容onset準確率)   : {ochuman:.4f}")
     
 
 # evg_dcrand = all_dcrand / (len(lll)-len(error))
@@ -221,4 +224,4 @@ for i in range(probabilities.shape[1]):
 
 
 # print(k)
-# # print(predicted_labels)
+# print(predicted_labels)

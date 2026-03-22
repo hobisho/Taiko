@@ -1,6 +1,5 @@
 import numpy as np
 import os
-import sys
 from compression.compression_filepath_labellist import compression_listpath
 from label.tjaread_v3 import parse_tja_file #type:ignore
 from split_song.splitv2 import process_audio
@@ -33,7 +32,7 @@ def image_part(song_sumber)->np.array:
 
 
 if __name__ == "__main__":
-    for song_sumber in range(41,len(os.listdir(f"data/{folder}/"))+1):# len(os.listdir(f"data/{folder}/"))+1
+    for song_sumber in range(1,31):# len(os.listdir(f"data/{folder}/"))+1
         print("song_sumber:",song_sumber)
         image_part(song_sumber)
         label_list = labal_part(song_sumber)

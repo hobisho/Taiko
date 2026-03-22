@@ -1,11 +1,12 @@
 import numpy as np
-from compression.compression_filepath_labellist import compression_listpath
-from label.tjaread import parse_tja_file #type:ignore
-from split_song.splitv2 import process_audio
-from compression.filling import filling_label,biggest_piece
-from label.bk import break_str
+from v2.compression.compression_filepath_labellist import compression_listpath
+# from label.tjaread_v3 import parse_tja_file #type:ignore
+from v2.split_song.splitv2 import process_audio
+from v2.compression.filling import filling_label,biggest_piece
+# from label.bk import break_str
 from split_song.trans import main
 
+folder = "oni"
 
 def compression (song_sumber,label_list):
     image_filename_list = []
@@ -17,29 +18,15 @@ def compression (song_sumber,label_list):
     compression_listpath(image_filename_list, label_list,tfrecords_filename)
 
 
-def labal_part(song_number)->list:
-    label_list = parse_tja_file(f"data/level 6~7/song{song_number}")
-    label_list = break_str(label_list)
-    filling_label_list = filling_label(label_list)
-    return filling_label_list
-
-
 def image_part(song_sumber)->np.array:
-    input_audio = f"v2/data/level 6~7/song{song_sumber}"  # 你的音檔
-    song_output_folder = "v2/data/split_ogg"  # 儲存資料夾
-    jpg_output_folder = f"v2/data/zip_testing_data"
-    process_audio(input_audio, song_output_folder,jpg_output_folder)
+    input_audio = f"data/{folder}/song{song_sumber}" 
+    folder_path = "data"
+    process_audio(input_audio, folder_path)
 
 
 if __name__ == "__main__":
-    for song_sumber in range(1,11):
-        # image_part(song_sumber)
-        # song_sumber = 3
-        bpm,tick,offset,piece,label_list = main(f"eval/song{song_sumber}/song{song_sumber}.osu")
-        label_list = filling_label(label_list)
-        compression(song_sumber,label_list)
-
-    # song_sumber = 29
-    # # image_part(song_sumber)
-    # label_list = labal_part(song_sumber)
-    # compression(song_sumber,label_list)
+    # for song_sumber in range(1,11):
+    song_sumber = 1
+    bpm,tick,offset,piece,label_list = main(f"eval/song{song_sumber}/song{song_sumber}.osu")
+    label_list = filling_label(label_list)
+    compression(song_sumber,label_list)
