@@ -178,18 +178,18 @@ class TFDataset(Dataset):
 # -------------------------------
 # 超參數設定與資料準備
 # -------------------------------
-embedding_dim = 64    # CNN 與 Transformer 的特徵維度
+embedding_dim = 32    # CNN 與 Transformer 的特徵維度
 num_heads = 8          # Transformer 的多頭注意力數量
 num_layers = 4         # Transformer Encoder 的層數
-num_samples = 60      # 模擬資料筆數
+num_samples = 100      # 模擬資料筆數
 seq_length = 8159
 orig_H, orig_W, C = 400, 60, 3
 scale = 1
 # 設定縮放後的尺寸，降低圖片解析度以減少記憶體使用
 target_H, target_W = int(orig_H*scale), int(orig_W*scale)
 num_classes = 4
-batch_size = 2        # 較小的 batch_size 可降低記憶體需求
-num_epochs = 5            # 訓練的 epochs 數量  
+batch_size = 1        # 較小的 batch_size 可降低記憶體需求
+num_epochs = 4            # 訓練的 epochs 數量  
 
 
 if __name__ == "__main__":
@@ -213,7 +213,7 @@ if __name__ == "__main__":
 
     # train_dataset = DummyDataset(num_samples, seq_length, orig_H, orig_W, C,
     #                             num_classes, target_H, target_W)
-    file_list = [f"G://Mel_tfrecords/song{i}.tfrecords" for i in range(41, 41 + num_samples)]
+    file_list = [f"G://Mel_tfrecords/song{i}.tfrecords" for i in range(1, 1 + num_samples)]
     train_dataset = TFDataset(file_list, seq_length, target_H, target_W, num_samples = len(file_list))
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 

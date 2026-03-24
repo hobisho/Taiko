@@ -21,7 +21,7 @@ def audiosegment_to_numpy(audio_segment):
 
 
 
-def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=512, n_mels=128):
+def audio_to_spectrogram(audio, folder_data, folder_name = '', sr=44100, n_fft=1024, hop_length=512, n_mels=128):
     """
     輸入 audio
     1. 計算 STFT，並存成 STFT 圖片
@@ -40,7 +40,7 @@ def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=51
     log_S = librosa.amplitude_to_db(D, ref=np.max)
 
     # 3. 存 STFT 圖
-    save_STFT_fast(log_S, sr, folder_data)
+    save_STFT_fast(log_S, sr, folder_data, folder_name)
 
     # 4. 直接做 Mel Spectrogram
     mel_S = librosa.feature.melspectrogram(
@@ -52,11 +52,11 @@ def audio_to_spectrogram(audio, folder_data, sr=44100, n_fft=1024, hop_length=51
     )
     mel_db = librosa.power_to_db(mel_S, ref=np.max)
 
-    save_Mel_fast(mel_db, sr, folder_data)
+    save_Mel_fast(mel_db, sr, folder_data, folder_name)
 
 
-def save_Mel_fast(mel_db, sr, folder_data):
-    Mel_output_dir = f"{folder_data[0]}/Mel_Image/{folder_data[1]}"
+def save_Mel_fast(mel_db, sr, folder_data, folder_name):
+    Mel_output_dir = f"{folder_data[0]}/{folder_name}Mel_Image/{folder_data[1]}"
     os.makedirs(Mel_output_dir, exist_ok=True)
 
     mel_norm = mel_db - mel_db.min()
@@ -71,8 +71,8 @@ def save_Mel_fast(mel_db, sr, folder_data):
     cv2.imwrite(save_path, mel_img)
 
 
-def save_STFT_fast(STFT_db, sr, folder_data):
-    STFT_output_dir = f"{folder_data[0]}/STFT_Image/{folder_data[1]}"
+def save_STFT_fast(STFT_db, sr, folder_data, folder_name):
+    STFT_output_dir = f"{folder_data[0]}/{folder_name}STFT_Image/{folder_data[1]}"
     os.makedirs(STFT_output_dir, exist_ok=True)
 
     STFT_norm = STFT_db - STFT_db.min()

@@ -8,7 +8,7 @@ from split_song.song_sec import count_sec # type: ignore
 from OggToJpg.Spectrogram import audio_to_spectrogram # type: ignore
 
 
-def process_audio(input_audio, folder_path)->list:
+def process_audio(input_audio, folder_path, folder_name='')->list:
     ogg_file_path = None
     tja_data=TjaData(input_audio)
     offset = tja_data.Offset() *1000
@@ -44,7 +44,7 @@ def process_audio(input_audio, folder_path)->list:
         split_audio.export(output_path, format="ogg")
 
         start = end
-        audio_to_spectrogram(split_audio, [folder_path, file_name, i+1])
+        audio_to_spectrogram(split_audio, [folder_path, file_name, i+1], folder_name)
     print("split end")
     # return image
 
