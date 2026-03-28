@@ -9,6 +9,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../label')) # 假設結
 from label.tjaread_v3 import parse_tja_file #type:ignore
 song_code = '5'  # 根據你的實際情況修改
 
+sys.path.append("../v2")
+from Trans.transTja import main
+from compression.filling import filling_label
+from label.bk import break_str
+
 
 # 定義圖片縮放函式（與 train.py 保持一致）
 def resize_images(images, new_width, new_height):
@@ -50,7 +55,7 @@ def onset_comparison(human, ai, tolerance=1):
 base_dir = os.path.dirname(os.path.abspath(__file__))
 # 設定目標資料夾路徑：當前檔案所在目錄下的 "src/models"
 models_dir = os.path.join(base_dir, "models")
-checkpoint_path = os.path.join(models_dir, "20260318/checkpoint.pth")
+checkpoint_path = os.path.join(models_dir, "20260328/checkpoint.pth")
 if not os.path.exists(checkpoint_path):
     raise FileNotFoundError(f"Checkpoint not found at {checkpoint_path}")
 
@@ -86,6 +91,7 @@ best_dchuman = -1
 best_song = None
 error = []
 for iii in range(1,11):
+    nothing = 0
 # -------------------------------
 # 2. 從 tfrecords 讀取資料並前處理
 # -------------------------------
@@ -154,35 +160,58 @@ for iii in range(1,11):
     for i in range(probabilities.shape[1]):
         a = probabilities[0, i]
         a = a.tolist()
-        if a[2] > evg[2]:
+    #     if a[2] > evg[2]:
+    #         print(1,end="")
+    #         k.append(1)
+    #         p=p+1
+    #     elif a[3] > evg[3]:
+    #         print(2,end="")
+    #         p=p+1
+    #         k.append(2)
+    #     else:
+    #         print(0,end="")
+    #         k.append(0)
+    #         p=p+1
+        gap = [x - y for x, y in zip(a, evg)]
+        if gap.index(max(gap)) == 2:
             print(1,end="")
             k.append(1)
-            p=p+1
-        elif a[3] > evg[3]:
+        elif gap.index(max(gap)) == 3:
             print(2,end="")
-            p=p+1
             k.append(2)
         else:
             print(0,end="")
             k.append(0)
-            p=p+1
         if ((i%48)==47):
             print(",")
     k.append(0)
 
-
+    print("AI生成的譜面 (每小節16個字):")
 
     # 設定tja檔資料夾路徑
-    bars = parse_tja_file(f"./data/oni/song{iii}")
+    # bars = parse_tja_file(f"./data/oni/song{iii}")
+
+    # bars = break_str(bars)
+
+    _,_,_,_,bars = main(f"data/eval/song{iii}/song{iii}.osu")
+
+    bars = filling_label(bars)
     # print("原始譜面 (每小節16個字):")
-    # for a in range(len(bars)):
-    #     print(bars[a], end=",\n")
+    for a in range(len(bars)):
+        if a % 48 == 47:
+            print(bars[a], end=",\n")
+        else:
+            print(bars[a], end="")
+        if bars[a]==-1:
+            bars[a] = 0
+            nothing = nothing + 1
 
     # 展平成一維list（0/1/2）
-    human_chart = [int(c) for bar in bars for c in bar]
+
+    human_chart = bars[0:len(bars)-nothing]
 
     # 你的 k 是AI生成的譜面
-    ai_chart = k  # 你的 AI output (0/1/2 list)
+    ai_chart = k[0:len(bars)-nothing]  # 你的 AI output (0/1/2 list)
     # 讓兩個長度一樣，避免IndexError
     min_len = min(len(human_chart), len(ai_chart))
     human_chart = human_chart[:min_len]
@@ -229,7 +258,7 @@ for iii in range(1,11):
     hipspace = hipspace_comparison(to_binary(ai_chart), to_binary(human_chart))
     if dchuman > best_ochuman:
         best = iii
-        best_ochuman = dchuman
+        best_ochuman = ochuman
         best_dcrand = dcrand
         best_dchuman = dchuman
         best_song = iii
