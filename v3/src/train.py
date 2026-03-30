@@ -181,9 +181,9 @@ class TFDataset(Dataset):
 embedding_dim = 64    # CNN 與 Transformer 的特徵維度
 num_heads = 8          # Transformer 的多頭注意力數量
 num_layers = 4         # Transformer Encoder 的層數
-num_samples = 100      # 模擬資料筆數
-seq_length = 8159
-orig_H, orig_W, C = 400, 60, 3
+num_samples = 80      # 模擬資料筆數
+seq_length = 8160
+orig_H, orig_W, C = 128, 60, 3
 scale = 1
 # 設定縮放後的尺寸，降低圖片解析度以減少記憶體使用
 target_H, target_W = int(orig_H*scale), int(orig_W*scale)
@@ -213,7 +213,7 @@ if __name__ == "__main__":
 
     # train_dataset = DummyDataset(num_samples, seq_length, orig_H, orig_W, C,
     #                             num_classes, target_H, target_W)
-    file_list = [f"G://Mel_tfrecords/song{i}.tfrecords" for i in range(1, 1 + num_samples)]
+    file_list = [f"G://1Mel_tfrecords/song{i}.tfrecords" for i in range(1, 1 + num_samples)]
     train_dataset = TFDataset(file_list, seq_length, target_H, target_W, num_samples = len(file_list))
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     model = CNNTransformerModel(embedding_dim=embedding_dim, num_heads=num_heads, num_layers=num_layers,
                                 num_classes=num_classes, seq_length=seq_length).to(device)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.003)
 
     # 使用混合精度訓練 (AMP)
     scaler = torch.cuda.amp.GradScaler()

@@ -50,7 +50,7 @@ def process_audio(input_audio, folder_path, folder_name='')->list:
 
 # 測試用範例
 if __name__ == "__main__":
-    input_audio = "data/oni/song28"  # 你的音檔
+    input_audio = "data/oni/song1"  # 你的音檔
     folder_path = "data"
     process_audio(input_audio, folder_path)
     

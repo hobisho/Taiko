@@ -55,7 +55,7 @@ def onset_comparison(human, ai, tolerance=1):
 base_dir = os.path.dirname(os.path.abspath(__file__))
 # 設定目標資料夾路徑：當前檔案所在目錄下的 "src/models"
 models_dir = os.path.join(base_dir, "models")
-checkpoint_path = os.path.join(models_dir, "20260328/checkpoint.pth")
+checkpoint_path = os.path.join(models_dir, "20260318/checkpoint.pth")
 if not os.path.exists(checkpoint_path):
     raise FileNotFoundError(f"Checkpoint not found at {checkpoint_path}")
 
@@ -90,13 +90,13 @@ best_dcrand = -1
 best_dchuman = -1
 best_song = None
 error = []
-for iii in range(1,11):
+for iii in range(1,2):
     nothing = 0
 # -------------------------------
 # 2. 從 tfrecords 讀取資料並前處理
 # -------------------------------
 # 使用 inferance.py 中的 decompression 讀取 tfrecords 資料
-    tfrecords_filename = f"G://Osu_tfrecords/song{iii}.tfrecords"
+    tfrecords_filename = f"G://Osu8159_tfrecords/song{iii}.tfrecords"
     image_list, label_list = decompression(tfrecords_filename)
     image_array = np.array(image_list)
     print("原始圖片 shape:", image_array.shape)
@@ -150,28 +150,29 @@ for iii in range(1,11):
     p=0
     evg = [0,0,0,0]
 
-    for i in range(500):
+    for i in range(1000):
         a = probabilities[0, i]
         a = a.tolist()
         for j in range(4):
             evg[j] += a[j]
     for j in range(4):
-            evg[j] = evg[j]/500
+        evg[j] = evg[j]/1000
+    print(evg)
     for i in range(probabilities.shape[1]):
         a = probabilities[0, i]
         a = a.tolist()
-    #     if a[2] > evg[2]:
-    #         print(1,end="")
-    #         k.append(1)
-    #         p=p+1
-    #     elif a[3] > evg[3]:
-    #         print(2,end="")
-    #         p=p+1
-    #         k.append(2)
-    #     else:
-    #         print(0,end="")
-    #         k.append(0)
-    #         p=p+1
+        # if a[2] > evg[2]:
+        #     print(1,end="")
+        #     k.append(1)
+        #     p=p+1
+        # elif a[3] > evg[3]:
+        #     print(2,end="")
+        #     p=p+1
+        #     k.append(2)
+        # else:
+        #     print(0,end="")
+        #     k.append(0)
+        #     p=p+1
         gap = [x - y for x, y in zip(a, evg)]
         if gap.index(max(gap)) == 2:
             print(1,end="")
@@ -219,7 +220,7 @@ for iii in range(1,11):
 
     def hipspace_comparison(ai_chart_binary, human_chart_binary):
         # 根據論文定義，使用包含 8 個時間點的滑動視窗來衡量模式 [1]
-        window_size = 8
+        window_size = 8 #11
         
         # 如果譜面長度不足以形成一個完整的模式，則回傳 0
         if len(human_chart_binary) < window_size:

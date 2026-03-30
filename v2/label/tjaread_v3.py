@@ -45,20 +45,36 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
             #if it can be devide by 4 and not footstep numbers
             elif(((len(extracted_numbers[0])%4)==0) | ((len(extracted_numbers[0]))==1) | ((len(extracted_numbers[0]))==2) | ((len(extracted_numbers[0])%3)==0)):
                 #small than footstep
-                if(len(extracted_numbers[0])<footstep):
-                    if ((len(extracted_numbers[0])%32)==0):
+                word = ""
+
+                length = len(extracted_numbers[0])
+
+                if length < footstep:
+                    if (length % 32) == 0:
                         return None
-                    multiply = int(footstep/len(extracted_numbers[0]))
+
                     for d in extracted_numbers[0]:
-                        if ((d=="1")|(d=="2")):
-                            d=d
-                        elif (d=="3"):
-                            d="1"
-                        elif (d=="4"):
-                            d="2"
+                        # 先做你原本的 mapping
+                        if d == "1" or d == "2":
+                            d = d
+                        elif d == "3":
+                            d = "1"
+                        elif d == "4":
+                            d = "2"
                         else:
-                            d="0"
-                        word =  ''.join(word + (d * multiply))
+                            d = "0"
+
+                        # 🔥 新邏輯
+                        magnification = 48/length
+                        if magnification % 2 == 1:   # 單數
+                            new_d = "0" + d + "0"
+                        else:               # 雙數
+                            repet = int(magnification / 2)
+                            if repet == 1:
+                                new_d = d + d
+                            else:
+                                new_d = "0" * (repet-1) + d * 2 + "0" * (repet-1)
+                        word += new_d
 
                 #greater than footstep
                 else:
@@ -88,12 +104,12 @@ def parse_tja_file(folder_path:str, footstep:int=48)->list:
     #刪除前後的0
     pop = 0
     for i in range(len(numbers),0,-1):
-        if (numbers[i-1]=="000000000000000000000000000000000000000000000000"):
+        if (numbers[i-1]=="0"*48):
             numbers.pop(i-1)
         else:
             break
     for i in range(len(numbers)):
-        if (numbers[i]=="000000000000000000000000000000000000000000000000"):
+        if (numbers[i]=="0"*48):
             pop = pop+1
         else:
             break

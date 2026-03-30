@@ -10,7 +10,7 @@ folder = "oni"
 
 def compression (song_number,label_list,file_type:str = "STFT" or "Mel" ):
     image_filename_list = []
-    for numbers in range(1,biggest_piece()):
+    for numbers in range(1,biggest_piece()+1):
         image_filename_list.append(f"data/{file_type}_Image/song{song_number}/song{song_number}_{numbers}.jpg") 
     tfrecords_path = f'G:\\{file_type}_tfrecords/song{song_number}.tfrecords'
     compression_listpath(image_filename_list, label_list,tfrecords_path)
@@ -32,12 +32,12 @@ def image_part(song_sumber)->np.array:
 
 
 if __name__ == "__main__":
-    for song_sumber in range(28,41):# len(os.listdir(f"data/{folder}/"))+1
+    for song_sumber in range(1,108):# len(os.listdir(f"data/{folder}/"))+1
         print("song_sumber:",song_sumber)
-        image_part(song_sumber)
+        # image_part(song_sumber)
         label_list = labal_part(song_sumber)
-        compression(song_sumber,label_list,"STFT")
-        compression(song_sumber,label_list,"Mel")
+        # compression(song_sumber,label_list,"STFT")
+        compression(song_sumber,label_list,"1Mel")
 
 
     # song_sumber = 31
