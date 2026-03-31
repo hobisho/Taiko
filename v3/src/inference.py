@@ -13,6 +13,8 @@ sys.path.append("../v2")
 from Trans.transTja import main
 from compression.filling import filling_label
 from label.bk import break_str
+from src.eval_funtion import ADA, LUO, HI_P_Space, OCHuman, DCHuman, DCRandom
+
 
 
 # 定義圖片縮放函式（與 train.py 保持一致）
@@ -26,27 +28,6 @@ def resize_images(images, new_width, new_height):
 def to_binary(chart):
     # 0: 無敲擊, 1/2: 有敲擊
     return [int(x > 0) for x in chart]
-
-def direct_comparison(x, y):
-    return np.mean(np.array(x) == np.array(y))
-
-def onset_comparison(human, ai, tolerance=1):
-    human_bin = to_binary(human)
-    ai_bin = to_binary(ai)
-    hit_count = 0
-    total_count = 0
-    L = len(human_bin)
-    for i in range(L):
-        if human_bin[i] == 1:
-            total_count += 1
-            match = False
-            for j in range(max(0, i-tolerance), min(L, i+tolerance+1)):
-                if ai_bin[j] == 1:
-                    match = True
-                    break
-            if match:
-                hit_count += 1
-    return hit_count / total_count if total_count > 0 else 0
 
 # -------------------------------
 # 1. 載入 checkpoint 與建立模型
@@ -218,73 +199,40 @@ for iii in range(1,2):
     human_chart = human_chart[:min_len]
     ai_chart = ai_chart[:min_len]
 
-    def hipspace_comparison(ai_chart_binary, human_chart_binary):
-        # 根據論文定義，使用包含 8 個時間點的滑動視窗來衡量模式 [1]
-        window_size = 8 #11
-        
-        # 如果譜面長度不足以形成一個完整的模式，則回傳 0
-        if len(human_chart_binary) < window_size:
-            return 0.0
-            
-        # 使用集合 (set) 來過濾並儲存獨特的排列模式
-        ai_patterns = set()
-        human_patterns = set()
-        
-        # 擷取 AI 譜面中所有出現過的獨特模式
-        for i in range(len(ai_chart_binary) - window_size + 1):
-            ai_patterns.add(tuple(ai_chart_binary[i : i + window_size]))
-            
-        # 擷取人類譜面中所有出現過的獨特模式
-        for i in range(len(human_chart_binary) - window_size + 1):
-            human_patterns.add(tuple(human_chart_binary[i : i + window_size]))
-            
-        # 避免除以零的錯誤
-        if len(human_patterns) == 0:
-            return 0.0
-            
-        # 取得模型與人類的模式交集 [1]
-        intersection = ai_patterns.intersection(human_patterns)
-        
-        # 計算 HI P-Space 分數：將交集大小與人類總模式數量進行對比 [1]
-        score = len(intersection) / len(human_patterns)
-        
-        return score
-
     # 指標計算
     np.random.seed(5)
     random_chart = np.random.choice([0, 1, 2], size=len(ai_chart))
-    dcrand = direct_comparison(to_binary(ai_chart), to_binary(random_chart))
-    dchuman = direct_comparison(to_binary(ai_chart), to_binary(human_chart))
-    ochuman = onset_comparison(human_chart, ai_chart, tolerance=1)
-    hipspace = hipspace_comparison(to_binary(ai_chart), to_binary(human_chart))
-    if dchuman > best_ochuman:
-        best = iii
-        best_ochuman = ochuman
-        best_dcrand = dcrand
-        best_dchuman = dchuman
-        best_song = iii
+    dcrand = DCRandom(ai_chart)
+    dchuman = DCHuman(ai_chart, human_chart)
+    ochuman = OCHuman(ai_chart, human_chart)
+    hipspace = HI_P_Space(ai_chart, human_chart)
+    luo = LUO(ai_chart, human_chart)
+    ada = ADA(ai_chart, human_chart)
 
     all_dcrand = all_dcrand + dcrand
     all_dchuman = all_dchuman + dchuman
     all_ochuman = all_ochuman + ochuman
     all_hipspace = all_hipspace + hipspace
+    all_luo = all_luo + luo
+    all_ada = all_ada + ada
 
     print(f"DCRand  (與亂數一致率)      : {dcrand:.4f}")
     print(f"DCHuman (與人類準確率)      : {dchuman:.4f}")
     print(f"OCHuman (寬容onset準確率)   : {ochuman:.4f}")
     print(f"HI P-Space (模式相似度)     : {hipspace:.4f}")
+    print(f"ADA (Don&Ka ADA準確率)     : {ada:.4f}")
+    print(f"LUO (Don&Ka LUO相似度)     : {luo:.4f}")
 
-    evg_dcrand = all_dcrand / (10-len(error))
-    evg_dchuman = all_dchuman / (10-len(error))
-    evg_ochuman = all_ochuman / (10-len(error))
-    evg_hipspace = all_hipspace / (10-len(error))
+    evg_dcrand = all_dcrand / 10
+    evg_dchuman = all_dchuman / 10
+    evg_ochuman = all_ochuman / 10
+    evg_hipspace = all_hipspace / 10
+    evg_luo = all_luo / 10
+    evg_ada = all_ada / 10
 
 print(f"平均 DCRand  (與亂數一致率)      : {evg_dcrand:.4f}")
 print(f"平均 DCHuman (與人類準確率)      : {evg_dchuman:.4f}")
 print(f"平均 OCHuman (寬容onset準確率)   : {evg_ochuman:.4f}")
 print(f"平均 HI P-Space (模式相似度)     : {evg_hipspace:.4f}")
-print(f"最佳歌曲編號                    : {best_song}")
-print(f"最佳 DCRand  (與亂數一致率)      : {best_dcrand:.4f}")
-print(f"最佳 DCHuman (與人類準確率)      : {best_dchuman:.4f}")
-print(f"最佳 OCHuman (寬容onset準確率)   : {best_ochuman:.4f}")
-print(f"錯誤歌曲編號: {error}")
+print(f"平均 ADA (Don&Ka ADA準確率)     : {evg_ada:.4f}")
+print(f"平均 LUO (Don&Ka LUO相似度)     : {evg_luo:.4f}")
